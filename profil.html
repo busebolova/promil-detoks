@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profilim – Promil Detoks</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/profil.css" />
+</head>
+<body class="profil-body">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">
+        <img src="images/Promildetoks-logo2.png" alt="Promil Detoks" class="logo-img logo-img-scroll" style="filter:brightness(0) saturate(100%);" />
+      </a>
+      <ul class="nav-links" id="navLinks" style="display:flex;">
+        <li><a href="index.html#urunler" style="color:var(--dark);">Ürünler</a></li>
+        <li><a href="index.html#nasil-calisir" style="color:var(--dark);">Nasıl Çalışır?</a></li>
+        <li><a href="index.html#yorumlar" style="color:var(--dark);">Yorumlar</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:10px;margin-left:auto;position:relative;z-index:1001;">
+        <div id="navUserContainer" style="display:inline-flex;align-items:center;position:relative;z-index:1002;"></div>
+        <a href="index.html" class="btn btn-nav desktop-only" style="background:var(--accent);color:#fff;border-color:transparent;">
+          <i data-lucide="arrow-left" class="icon-xs"></i>
+          Alışverişe Dön
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== ANA İÇERİK ===== -->
+  <main class="profil-main">
+    <div class="container">
+
+      <!-- Giriş Yapılmamış Durumu — varsayılan olarak göster, JS giriş yapılmışsa gizler -->
+      <div id="authRequired" class="auth-required-wrap">
+        <div class="auth-required-card">
+          <div class="auth-required-icon">
+            <i data-lucide="lock" style="width:40px;height:40px;stroke-width:1.5;color:var(--accent);"></i>
+          </div>
+          <h2>Giriş Yapmanız Gerekiyor</h2>
+          <p>Profilinizi görüntülemek ve siparişlerinizi takip etmek için lütfen giriş yapın.</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;">
+            <button class="btn btn-primary" onclick="showLoginModal()">
+              <i data-lucide="log-in" class="icon-xs"></i>
+              Giriş Yap
+            </button>
+            <button class="btn btn-ghost" style="background:var(--gray-100);color:var(--dark);border-color:var(--gray-200);" onclick="showRegisterModal()">
+              <i data-lucide="user-plus" class="icon-xs"></i>
+              Kayıt Ol
+            </button>
+          </div>
+          <!-- Hızlı Giriş Formu (modal açmadan direkt) -->
+          <div id="quickLoginWrap" style="width:100%;max-width:360px;margin:0 auto;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <div style="flex:1;height:1px;background:var(--gray-200);"></div>
+              <span style="font-size:.75rem;color:var(--gray-400);font-weight:600;">veya hızlı giriş</span>
+              <div style="flex:1;height:1px;background:var(--gray-200);"></div>
+            </div>
+            <form id="quickLoginForm" novalidate>
+              <div class="profil-form-group" style="margin-bottom:10px;">
+                <input type="email" id="quickEmail" placeholder="E-posta adresiniz" autocomplete="email"
+                  style="width:100%;padding:12px 16px;border:1.5px solid var(--gray-200);border-radius:var(--r-sm);font-family:inherit;font-size:.88rem;color:var(--dark);outline:none;transition:all .15s ease;" />
+              </div>
+              <div class="profil-form-group" style="margin-bottom:12px;">
+                <div class="input-eye-wrap">
+                  <input type="password" id="quickPassword" placeholder="Şifreniz" autocomplete="current-password"
+                    style="width:100%;padding:12px 16px;padding-right:44px;border:1.5px solid var(--gray-200);border-radius:var(--r-sm);font-family:inherit;font-size:.88rem;color:var(--dark);outline:none;transition:all .15s ease;" />
+                  <button type="button" class="eye-toggle" onclick="togglePwd('quickPassword', this)">
+                    <i data-lucide="eye" class="icon-xs"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="profil-error" id="quickLoginError" style="display:none;margin-bottom:10px;"></div>
+              <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="quickLoginBtn">
+                <i data-lucide="log-in" class="icon-xs"></i>
+                Giriş Yap
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profil İçeriği -->
+      <div id="profilContent" style="display:none;">
+
+        <!-- Profil Başlık -->
+        <div class="profil-header">
+          <div class="profil-avatar" id="profilAvatar">AY</div>
+          <div class="profil-header-info">
+            <h1 id="profilFullName">Ad Soyad</h1>
+            <p id="profilEmail">email@example.com</p>
+            <span class="profil-member-badge">
+              <i data-lucide="shield-check" class="icon-xs"></i>
+              Üye
+            </span>
+          </div>
+          <button class="btn btn-ghost profil-logout-btn" id="logoutBtn" style="background:rgba(239,68,68,.08);color:#dc2626;border-color:rgba(239,68,68,.2);">
+            <i data-lucide="log-out" class="icon-xs"></i>
+            Çıkış Yap
+          </button>
+        </div>
+
+        <!-- Tab Menü -->
+        <div class="profil-tabs">
+          <button class="profil-tab active" data-tab="orders">
+            <i data-lucide="package" class="icon-xs"></i>
+            Siparişlerim
+          </button>
+          <button class="profil-tab" data-tab="profile">
+            <i data-lucide="user" class="icon-xs"></i>
+            Profil Bilgileri
+          </button>
+          <button class="profil-tab" data-tab="address">
+            <i data-lucide="map-pin" class="icon-xs"></i>
+            Adres Bilgileri
+          </button>
+          <button class="profil-tab" data-tab="security">
+            <i data-lucide="lock" class="icon-xs"></i>
+            Güvenlik
+          </button>
+        </div>
+
+        <!-- ── SİPARİŞLERİM ── -->
+        <div class="profil-tab-content active" id="tab-orders">
+          <div class="profil-card">
+            <div class="profil-card-header">
+              <h3>
+                <i data-lucide="package" class="icon-sm"></i>
+                Siparişlerim
+              </h3>
+              <button class="btn-refresh" id="refreshOrdersBtn">
+                <i data-lucide="refresh-cw" class="icon-xs"></i>
+                Yenile
+              </button>
+            </div>
+            <div id="ordersContainer">
+              <div class="orders-loading">
+                <div class="loading-spinner"></div>
+                <p>Siparişler yükleniyor...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PROFİL BİLGİLERİ ── -->
+        <div class="profil-tab-content" id="tab-profile">
+          <div class="profil-card">
+            <div class="profil-card-header">
+              <h3>
+                <i data-lucide="user" class="icon-sm"></i>
+                Kişisel Bilgiler
+              </h3>
+            </div>
+            <form id="profileForm" class="profil-form">
+              <div class="profil-form-row">
+                <div class="profil-form-group">
+                  <label>Ad <span class="req">*</span></label>
+                  <input type="text" id="pfFirstName" placeholder="Adınız" required autocomplete="given-name" />
+                </div>
+                <div class="profil-form-group">
+                  <label>Soyad <span class="req">*</span></label>
+                  <input type="text" id="pfLastName" placeholder="Soyadınız" required autocomplete="family-name" />
+                </div>
+              </div>
+              <div class="profil-form-group">
+                <label>E-posta</label>
+                <input type="email" id="pfEmail" placeholder="E-posta adresiniz" disabled style="background:var(--gray-50);cursor:not-allowed;" />
+                <small style="color:var(--gray-400);font-size:.72rem;margin-top:4px;display:block;">E-posta adresi değiştirilemez.</small>
+              </div>
+              <div class="profil-form-group">
+                <label>Telefon</label>
+                <input type="tel" id="pfPhone" placeholder="05XX XXX XX XX" autocomplete="tel" />
+              </div>
+              <div class="profil-form-actions">
+                <button type="submit" class="btn btn-primary">
+                  <i data-lucide="save" class="icon-xs"></i>
+                  Kaydet
+                </button>
+              </div>
+              <div class="profil-success" id="profileSuccess" style="display:none;">
+                <i data-lucide="check-circle" class="icon-xs"></i>
+                Profil bilgileri güncellendi!
+              </div>
+              <div class="profil-error" id="profileError" style="display:none;"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- ── ADRES BİLGİLERİ ── -->
+        <div class="profil-tab-content" id="tab-address">
+          <div class="profil-card">
+            <div class="profil-card-header">
+              <h3>
+                <i data-lucide="map-pin" class="icon-sm"></i>
+                Teslimat Adresi
+              </h3>
+            </div>
+            <form id="addressForm" class="profil-form">
+              <div class="profil-form-group">
+                <label>Adres <span class="req">*</span></label>
+                <input type="text" id="pfAddress" placeholder="Mahalle, Sokak, Bina No, Daire No" autocomplete="street-address" />
+              </div>
+              <div class="profil-form-row">
+                <div class="profil-form-group">
+                  <label>Şehir <span class="req">*</span></label>
+                  <input type="text" id="pfCity" placeholder="Şehir" autocomplete="address-level2" />
+                </div>
+                <div class="profil-form-group">
+                  <label>İlçe</label>
+                  <input type="text" id="pfDistrict" placeholder="İlçe" autocomplete="address-level3" />
+                </div>
+              </div>
+              <div class="profil-form-group">
+                <label>Posta Kodu</label>
+                <input type="text" id="pfZip" placeholder="Posta Kodu (opsiyonel)" autocomplete="postal-code" />
+              </div>
+              <div class="profil-form-actions">
+                <button type="submit" class="btn btn-primary">
+                  <i data-lucide="save" class="icon-xs"></i>
+                  Adresi Kaydet
+                </button>
+              </div>
+              <div class="profil-success" id="addressSuccess" style="display:none;">
+                <i data-lucide="check-circle" class="icon-xs"></i>
+                Adres bilgileri güncellendi!
+              </div>
+              <div class="profil-error" id="addressError" style="display:none;"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- ── GÜVENLİK ── -->
+        <div class="profil-tab-content" id="tab-security">
+          <div class="profil-card">
+            <div class="profil-card-header">
+              <h3>
+                <i data-lucide="lock" class="icon-sm"></i>
+                Şifre Değiştir
+              </h3>
+            </div>
+            <form id="securityForm" class="profil-form">
+              <div class="profil-form-group">
+                <label>Mevcut Şifre <span class="req">*</span></label>
+                <div class="input-eye-wrap">
+                  <input type="password" id="pfCurrentPwd" placeholder="Mevcut şifreniz" required />
+                  <button type="button" class="eye-toggle" onclick="togglePwd('pfCurrentPwd', this)">
+                    <i data-lucide="eye" class="icon-xs"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="profil-form-group">
+                <label>Yeni Şifre <span class="req">*</span></label>
+                <div class="input-eye-wrap">
+                  <input type="password" id="pfNewPwd" placeholder="En az 6 karakter" required />
+                  <button type="button" class="eye-toggle" onclick="togglePwd('pfNewPwd', this)">
+                    <i data-lucide="eye" class="icon-xs"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="profil-form-group">
+                <label>Yeni Şifre (Tekrar) <span class="req">*</span></label>
+                <div class="input-eye-wrap">
+                  <input type="password" id="pfNewPwd2" placeholder="Şifreyi tekrar girin" required />
+                  <button type="button" class="eye-toggle" onclick="togglePwd('pfNewPwd2', this)">
+                    <i data-lucide="eye" class="icon-xs"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="profil-form-actions">
+                <button type="submit" class="btn btn-primary">
+                  <i data-lucide="shield-check" class="icon-xs"></i>
+                  Şifreyi Güncelle
+                </button>
+              </div>
+              <div class="profil-success" id="securitySuccess" style="display:none;">
+                <i data-lucide="check-circle" class="icon-xs"></i>
+                Şifreniz başarıyla güncellendi!
+              </div>
+              <div class="profil-error" id="securityError" style="display:none;"></div>
+            </form>
+          </div>
+        </div>
+
+      </div><!-- /profilContent -->
+    </div>
+  </main>
+
+  <!-- ===== GİRİŞ MODAL ===== -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal profil-modal">
+      <button class="modal-close" id="loginModalClose">
+        <i data-lucide="x" class="icon-sm"></i>
+      </button>
+      <div class="modal-header">
+        <h3>Giriş Yap</h3>
+        <p>Hesabınıza giriş yapın</p>
+      </div>
+      <form id="loginForm" class="profil-form" novalidate>
+        <div class="profil-form-group">
+          <label>E-posta <span class="req">*</span></label>
+          <input type="email" id="loginEmail" placeholder="ornek@email.com" required autocomplete="email" />
+        </div>
+        <div class="profil-form-group">
+          <label>Şifre <span class="req">*</span></label>
+          <div class="input-eye-wrap">
+            <input type="password" id="loginPassword" placeholder="Şifreniz" required autocomplete="current-password" />
+            <button type="button" class="eye-toggle" onclick="togglePwd('loginPassword', this)">
+              <i data-lucide="eye" class="icon-xs"></i>
+            </button>
+          </div>
+        </div>
+        <div class="profil-error" id="loginError" style="display:none;"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="loginSubmitBtn">
+          <i data-lucide="log-in" class="icon-xs"></i>
+          Giriş Yap
+        </button>
+        <p style="text-align:center;font-size:.83rem;color:var(--gray-600);margin-top:16px;">
+          Hesabınız yok mu?
+          <button type="button" onclick="switchToRegister()" style="background:none;border:none;color:var(--accent-dark);font-weight:700;cursor:pointer;font-size:.83rem;">Kayıt Ol</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== KAYIT MODAL ===== -->
+  <div class="modal-overlay" id="registerModal">
+    <div class="modal profil-modal">
+      <button class="modal-close" id="registerModalClose">
+        <i data-lucide="x" class="icon-sm"></i>
+      </button>
+      <div class="modal-header">
+        <h3>Kayıt Ol</h3>
+        <p>Yeni hesap oluşturun</p>
+      </div>
+      <form id="registerForm" class="profil-form" novalidate>
+        <div class="profil-form-row">
+          <div class="profil-form-group">
+            <label>Ad <span class="req">*</span></label>
+            <input type="text" id="regFirstName" placeholder="Adınız" required autocomplete="given-name" />
+          </div>
+          <div class="profil-form-group">
+            <label>Soyad <span class="req">*</span></label>
+            <input type="text" id="regLastName" placeholder="Soyadınız" required autocomplete="family-name" />
+          </div>
+        </div>
+        <div class="profil-form-group">
+          <label>E-posta <span class="req">*</span></label>
+          <input type="email" id="regEmail" placeholder="ornek@email.com" required autocomplete="email" />
+        </div>
+        <div class="profil-form-group">
+          <label>Telefon</label>
+          <input type="tel" id="regPhone" placeholder="05XX XXX XX XX" autocomplete="tel" />
+        </div>
+        <div class="profil-form-group">
+          <label>Şifre <span class="req">*</span></label>
+          <div class="input-eye-wrap">
+            <input type="password" id="regPassword" placeholder="En az 6 karakter" required autocomplete="new-password" />
+            <button type="button" class="eye-toggle" onclick="togglePwd('regPassword', this)">
+              <i data-lucide="eye" class="icon-xs"></i>
+            </button>
+          </div>
+        </div>
+        <div class="profil-form-group">
+          <label>Şifre (Tekrar) <span class="req">*</span></label>
+          <div class="input-eye-wrap">
+            <input type="password" id="regPassword2" placeholder="Şifreyi tekrar girin" required autocomplete="new-password" />
+            <button type="button" class="eye-toggle" onclick="togglePwd('regPassword2', this)">
+              <i data-lucide="eye" class="icon-xs"></i>
+            </button>
+          </div>
+        </div>
+        <div class="profil-error" id="registerError" style="display:none;"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;" id="registerSubmitBtn">
+          <i data-lucide="user-plus" class="icon-xs"></i>
+          Kayıt Ol
+        </button>
+        <p style="text-align:center;font-size:.83rem;color:var(--gray-600);margin-top:16px;">
+          Zaten hesabınız var mı?
+          <button type="button" onclick="switchToLogin()" style="background:none;border:none;color:var(--accent-dark);font-weight:700;cursor:pointer;font-size:.83rem;">Giriş Yap</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== MOBİL ALT NAVİGASYON ===== -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <a href="index.html#hero" class="mob-nav-item" data-section="hero">
+      <i data-lucide="home" class="icon-mob-nav"></i>
+      <span>Ana Sayfa</span>
+    </a>
+    <a href="index.html#urunler" class="mob-nav-item" data-section="urunler">
+      <i data-lucide="package" class="icon-mob-nav"></i>
+      <span>Ürünler</span>
+    </a>
+    <a href="index.html" class="mob-nav-item">
+      <div class="mob-nav-cta-btn">
+        <i data-lucide="shopping-cart" class="icon-mob-nav-cta"></i>
+      </div>
+      <span>Alışveriş</span>
+    </a>
+    <a href="index.html#yorumlar" class="mob-nav-item" data-section="yorumlar">
+      <i data-lucide="star" class="icon-mob-nav"></i>
+      <span>Yorumlar</span>
+    </a>
+    <a href="profil.html" class="mob-nav-item active" id="mobProfilBtn">
+      <i data-lucide="user" class="icon-mob-nav"></i>
+      <span id="mobProfilLabel">Profil</span>
+    </a>
+  </nav>
+
+  <script src="js/auth.js"></script>
+  <script src="js/profil.js"></script>
+</body>
+</html>

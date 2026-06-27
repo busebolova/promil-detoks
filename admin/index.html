@@ -1,0 +1,1377 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Promil Detoks – Admin Panel</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/admin/admin.css" />
+  <meta name="robots" content="noindex, nofollow" />
+</head>
+<body>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="/images/Promildetoks-logo2.png" alt="Promil Detoks" />
+      <h1>Admin Panel</h1>
+      <p>Promil Detoks içerik yönetimi</p>
+    </div>
+    <form class="login-form" id="loginForm">
+      <div class="form-group">
+        <label>Admin Şifresi</label>
+        <div class="input-with-eye">
+          <input type="password" id="inputPassword" placeholder="••••••••" autocomplete="current-password" required />
+          <button type="button" class="eye-btn" onclick="toggleLoginPwd(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="login-error" id="loginError"></div>
+      <button type="submit" class="btn btn-primary btn-lg" id="loginBtn" style="width:100%;justify-content:center;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+        Giriş Yap
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== ADMIN APP ===== -->
+<div id="adminApp">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="/images/Promildetoks-logo2.png" alt="Promil Detoks" />
+      <div class="sidebar-logo-text">
+        <strong>Promil Detoks</strong>
+        <span>Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <span class="nav-section-label">Genel</span>
+      <button class="nav-item active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </button>
+
+      <span class="nav-section-label">İçerik</span>
+      <button class="nav-item" data-page="hero">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Hero Bölümü
+      </button>
+      <button class="nav-item" data-page="products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        Ürünler
+      </button>
+      <button class="nav-item" data-page="testimonials">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Müşteri Yorumları
+      </button>
+      <button class="nav-item" data-page="cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
+        CTA &amp; İletişim
+      </button>
+
+      <button class="nav-item" data-page="howitworks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Nasıl Çalışır?
+      </button>
+      <button class="nav-item" data-page="benefits">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Avantajlar
+      </button>
+      <button class="nav-item" data-page="packages">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        Paket Fiyatları
+      </button>
+      <button class="nav-item" data-page="trustbar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+        Güven Bantları
+      </button>
+      <button class="nav-item" data-page="footer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        Footer
+      </button>
+
+      <span class="nav-section-label">Mağaza</span>
+      <button class="nav-item" data-page="store">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Mağaza Ürünleri
+      </button>
+      <button class="nav-item" data-page="orders">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Siparişler
+      </button>
+      <button class="nav-item" data-page="users">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Kullanıcılar
+      </button>
+      <button class="nav-item" data-page="dealers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Bayilik Başvuruları
+      </button>
+
+      <span class="nav-section-label">Medya</span>
+      <button class="nav-item" data-page="images">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Görseller
+      </button>
+
+      <span class="nav-section-label">Ödeme</span>
+      <button class="nav-item" data-page="iyzico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        iyzico API
+      </button>
+
+      <span class="nav-section-label">Sistem</span>
+      <button class="nav-item" data-page="seo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        SEO Ayarları
+      </button>
+      <button class="nav-item" data-page="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        Site Ayarları
+      </button>
+      <button class="nav-item" data-page="commits">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"/><line x1="1.05" y1="12" x2="7" y2="12"/><line x1="17.01" y1="12" x2="22.96" y2="12"/></svg>
+        Commit Geçmişi
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="repo-info">
+        <p>Repository</p>
+        <strong id="repoDisplay">–</strong>
+        <p style="margin-top:6px;">Branch</p>
+        <strong id="branchDisplay">–</strong>
+      </div>
+      <button class="btn-logout" id="logoutBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Çıkış Yap
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      <div class="topbar-actions">
+        <span class="status-badge disconnected" id="statusBadge">
+          <span class="status-dot"></span> Bağlı değil
+        </span>
+        <button class="btn btn-primary" id="saveBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Kaydet &amp; Yayınla
+        </button>
+        <a href="../index.html" target="_blank" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+          Siteyi Gör
+        </a>
+      </div>
+    </header>
+
+    <!-- Pages -->
+    <div class="page-content">
+
+      <!-- ── DASHBOARD ── -->
+      <div class="page active" id="page-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-icon green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+            <div class="stat-card-label">Toplam Ürün</div>
+            <div class="stat-card-value" id="dashProductCount">–</div>
+            <div class="stat-card-sub">Aktif ürün sayısı</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="stat-card-label">Müşteri Yorumu</div>
+            <div class="stat-card-value" id="dashTestimonialCount">–</div>
+            <div class="stat-card-sub">Gösterilen yorum sayısı</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="stat-card-label">Toz Fiyatı</div>
+            <div class="stat-card-value" id="dashTozPrice">–</div>
+            <div class="stat-card-sub">Güncel satış fiyatı</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div class="stat-card-label">iyzico Durumu</div>
+            <div class="stat-card-value" id="dashIyzicoStatus">–</div>
+            <div class="stat-card-sub">Ödeme entegrasyonu</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Hızlı Başlangıç</h3><p>Admin panelini kullanmak için adımlar</p></div>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;gap:14px;align-items:flex-start;">
+                <div style="width:28px;height:28px;background:rgba(34,197,94,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75rem;font-weight:800;color:var(--accent-dark);">1</div>
+                <div><strong style="font-size:.88rem;color:var(--dark);display:block;margin-bottom:2px;">Sol menüden bir bölüm seçin</strong><span style="font-size:.8rem;color:var(--gray-600);">Hero, Ürünler, Yorumlar veya CTA bölümlerini düzenleyebilirsiniz.</span></div>
+              </div>
+              <div style="display:flex;gap:14px;align-items:flex-start;">
+                <div style="width:28px;height:28px;background:rgba(34,197,94,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75rem;font-weight:800;color:var(--accent-dark);">2</div>
+                <div><strong style="font-size:.88rem;color:var(--dark);display:block;margin-bottom:2px;">İçerikleri düzenleyin</strong><span style="font-size:.8rem;color:var(--gray-600);">Fiyatlar, metinler ve diğer içerikleri formlarda güncelleyin.</span></div>
+              </div>
+              <div style="display:flex;gap:14px;align-items:flex-start;">
+                <div style="width:28px;height:28px;background:rgba(34,197,94,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75rem;font-weight:800;color:var(--accent-dark);">3</div>
+                <div><strong style="font-size:.88rem;color:var(--dark);display:block;margin-bottom:2px;">"Kaydet &amp; Yayınla" butonuna tıklayın</strong><span style="font-size:.8rem;color:var(--gray-600);">Değişiklikler GitHub'a commit edilir. Vercel otomatik deploy eder.</span></div>
+              </div>
+              <div style="display:flex;gap:14px;align-items:flex-start;">
+                <div style="width:28px;height:28px;background:rgba(59,130,246,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.75rem;font-weight:800;color:#2563eb;">4</div>
+                <div><strong style="font-size:.88rem;color:var(--dark);display:block;margin-bottom:2px;">iyzico API anahtarlarını girin</strong><span style="font-size:.8rem;color:var(--gray-600);">Sol menüden "iyzico API" bölümüne giderek ödeme entegrasyonunu aktif edin.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HERO ── -->
+      <div class="page" id="page-hero">
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Başlık</h3><p>Hero bölümündeki ana başlık metinleri</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group">
+              <label>Badge Metni</label>
+              <input type="text" id="hero_badge" placeholder="%100 Doğal &amp; Bitkisel Formül" />
+            </div>
+            <div class="form-grid-3">
+              <div class="form-group"><label>Başlık – Beyaz 1</label><input type="text" id="hero_title_white1" placeholder="Alkol Sonrası" /></div>
+              <div class="form-group"><label>Başlık – Yeşil (Gradient)</label><input type="text" id="hero_title_green" placeholder="Hızlı Toparlan," /></div>
+              <div class="form-group"><label>Başlık – Beyaz 2</label><input type="text" id="hero_title_white2" placeholder="Güne Hazır Ol" /></div>
+            </div>
+            <div class="form-group">
+              <label>Açıklama Metni</label>
+              <textarea id="hero_description" rows="3" placeholder="Hero açıklama..."></textarea>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group"><label>CTA Butonu 1 (Yeşil)</label><input type="text" id="hero_cta_primary" placeholder="Ürünleri Keşfet" /></div>
+              <div class="form-group"><label>CTA Butonu 2 (Ghost)</label><input type="text" id="hero_cta_secondary" placeholder="Nasıl Çalışır?" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>İstatistikler</h3><p>Hero altındaki 3 istatistik kutusu</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid-3">
+              <div class="form-group"><label>İstatistik 1 – Sayı</label><input type="text" id="hero_stat1_num" placeholder="50K+" /></div>
+              <div class="form-group"><label>İstatistik 1 – Etiket</label><input type="text" id="hero_stat1_label" placeholder="Mutlu Kullanıcı" /></div>
+              <div></div>
+              <div class="form-group"><label>İstatistik 2 – Sayı</label><input type="text" id="hero_stat2_num" placeholder="%98" /></div>
+              <div class="form-group"><label>İstatistik 2 – Etiket</label><input type="text" id="hero_stat2_label" placeholder="Memnuniyet" /></div>
+              <div></div>
+              <div class="form-group"><label>İstatistik 3 – Sayı</label><input type="text" id="hero_stat3_num" placeholder="2" /></div>
+              <div class="form-group"><label>İstatistik 3 – Etiket</label><input type="text" id="hero_stat3_label" placeholder="Özel Formül" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PRODUCTS ── -->
+      <div class="page" id="page-products">
+        <div class="product-tabs">
+          <button class="product-tab active">🧪 Promil Detoks Toz</button>
+          <button class="product-tab">⚡ Promil Detoks Shot</button>
+        </div>
+
+        <!-- Coming Soon Toggle (Shot için gösterilir) -->
+        <div class="card admin-form" id="prod_coming_soon_card" style="display:none;">
+          <div class="card-header">
+            <div><h3>Ürün Durumu</h3><p>Bu ürün henüz satışa sunulmadıysa "Çok Yakında" olarak işaretleyin</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group">
+              <label>Ürün Durumu</label>
+              <div class="toggle-wrap" style="margin-top:8px;">
+                <label class="toggle">
+                  <input type="checkbox" id="prod_coming_soon" />
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Çok Yakında (satışa kapalı)</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Çok Yakında Etiketi</label>
+              <input type="text" id="prod_coming_soon_tag" placeholder="Çok Yakında" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Ürün Bilgileri</h3><p>Seçili ürünün içerik ve fiyat bilgileri</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid-2">
+              <div class="form-group"><label>Badge (Rozet)</label><input type="text" id="prod_badge" placeholder="En Çok Satan" /></div>
+              <div class="form-group"><label>Etiket (Tag)</label><input type="text" id="prod_tag" placeholder="Toz Formül" /></div>
+            </div>
+            <div class="form-group"><label>Ürün Adı</label><input type="text" id="prod_name" placeholder="Promil Detoks Toz" /></div>
+            <div class="form-group"><label>Ürün Açıklaması</label><textarea id="prod_description" rows="3" placeholder="Ürün açıklaması..."></textarea></div>
+            <div class="form-grid-2">
+              <div class="form-group"><label>Eski Fiyat (₺) – boş bırakılabilir</label><input type="text" id="prod_price_old" placeholder="299" /></div>
+              <div class="form-group"><label>Yeni Fiyat (₺)</label><input type="number" id="prod_price_new" placeholder="199" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Kargo Bilgileri</h3><p>Kargo süresi ve taşıyıcı bilgisi</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group">
+              <label>Ücretsiz Kargo</label>
+              <div class="toggle-wrap" style="margin-top:8px;">
+                <label class="toggle">
+                  <input type="checkbox" id="prod_shipping_free" checked />
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Ücretsiz kargo aktif</span>
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group"><label>Kargo Firması</label><input type="text" id="prod_shipping_carrier" placeholder="Yurtiçi Kargo" /></div>
+              <div class="form-group"><label>Teslimat Süresi</label><input type="text" id="prod_shipping_days" placeholder="2-3 iş günü" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card admin-form" id="prod_features_card">
+          <div class="card-header">
+            <div><h3>Özellikler</h3><p>Ürün kartındaki özellik listesi</p></div>
+            <button class="btn btn-secondary btn-sm" onclick="addFeature()">+ Özellik Ekle</button>
+          </div>
+          <div class="card-body">
+            <div class="features-list" id="featuresListContainer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TESTIMONIALS ── -->
+      <div class="page" id="page-testimonials">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+          <button class="btn btn-secondary" onclick="addTestimonial()">+ Yorum Ekle</button>
+        </div>
+        <div id="testimonialsContainer"></div>
+      </div>
+
+      <!-- ── CTA & İLETİŞİM ── -->
+      <div class="page" id="page-cta">
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>CTA Banner</h3><p>Sayfanın alt kısmındaki çağrı bölümü</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>Başlık</label><input type="text" id="cta_title" placeholder="Alkol Sonrası Toparlanmayı Kolaylaştır" /></div>
+            <div class="form-group"><label>Açıklama</label><input type="text" id="cta_description" placeholder="İlk siparişinde %30 indirim..." /></div>
+            <div class="form-group"><label>Buton Metni</label><input type="text" id="cta_button" placeholder="Hemen Başla" /></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>İletişim Bilgileri</h3><p>Footer'da görünen iletişim bilgileri</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>E-posta</label><input type="email" id="contact_email" placeholder="info@promildetoks.com" /></div>
+            <div class="form-group"><label>Telefon</label><input type="text" id="contact_phone" placeholder="0850 XXX XX XX" /></div>
+            <div class="form-group"><label>Adres</label><input type="text" id="contact_address" placeholder="İstanbul, Türkiye" /></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Sosyal Medya</h3><p>Footer'da görünecek sosyal medya linkleri (boş bırakılanlar gizlenir)</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>Instagram</label><input type="url" id="social_instagram" placeholder="https://www.instagram.com/..." /></div>
+            <div class="form-group"><label>Facebook</label><input type="url" id="social_facebook" placeholder="https://www.facebook.com/..." /></div>
+            <div class="form-group"><label>Twitter / X</label><input type="url" id="social_twitter" placeholder="https://twitter.com/..." /></div>
+            <div class="form-group"><label>YouTube</label><input type="url" id="social_youtube" placeholder="https://www.youtube.com/..." /></div>
+            <div class="form-group"><label>TikTok</label><input type="url" id="social_tiktok" placeholder="https://www.tiktok.com/..." /></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NASIL ÇALIŞIR ── -->
+      <div class="page" id="page-howitworks">
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Bölüm Başlığı</h3><p>Nasıl Çalışır bölümünün üst kısmı</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid-3">
+              <div class="form-group"><label>Etiket (Tag)</label><input type="text" id="hiw_tag" placeholder="Süreç" /></div>
+              <div class="form-group"><label>Başlık</label><input type="text" id="hiw_title" placeholder="Nasıl Çalışır?" /></div>
+              <div class="form-group"><label>Açıklama</label><input type="text" id="hiw_description" placeholder="3 basit adımda..." /></div>
+            </div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header"><div><h3>Adım 1</h3><p>İlk adım içeriği</p></div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid-2">
+              <div class="form-group"><label>Numara</label><input type="text" id="hiw_step1_num" placeholder="01" /></div>
+              <div class="form-group"><label>Başlık</label><input type="text" id="hiw_step1_title" placeholder="Ürününü Seç" /></div>
+            </div>
+            <div class="form-group"><label>Açıklama</label><textarea id="hiw_step1_text" rows="2" placeholder="Adım açıklaması..."></textarea></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header"><div><h3>Adım 2</h3><p>İkinci adım içeriği</p></div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid-2">
+              <div class="form-group"><label>Numara</label><input type="text" id="hiw_step2_num" placeholder="02" /></div>
+              <div class="form-group"><label>Başlık</label><input type="text" id="hiw_step2_title" placeholder="Kullan" /></div>
+            </div>
+            <div class="form-group"><label>Açıklama</label><textarea id="hiw_step2_text" rows="2" placeholder="Adım açıklaması..."></textarea></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header"><div><h3>Adım 3</h3><p>Üçüncü adım içeriği</p></div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid-2">
+              <div class="form-group"><label>Numara</label><input type="text" id="hiw_step3_num" placeholder="03" /></div>
+              <div class="form-group"><label>Başlık</label><input type="text" id="hiw_step3_title" placeholder="Farkı Hisset" /></div>
+            </div>
+            <div class="form-group"><label>Açıklama</label><textarea id="hiw_step3_text" rows="2" placeholder="Adım açıklaması..."></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── AVANTAJLAR ── -->
+      <div class="page" id="page-benefits">
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Bölüm Başlığı</h3><p>Farkımızı Hissedin bölümünün üst kısmı</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid-2">
+              <div class="form-group"><label>Etiket (Tag)</label><input type="text" id="ben_tag" placeholder="Neden Promil?" /></div>
+              <div class="form-group"><label>Başlık</label><input type="text" id="ben_title" placeholder="Farkımızı Hissedin" /></div>
+            </div>
+            <div class="form-group"><label>Açıklama</label><textarea id="ben_description" rows="2" placeholder="Bölüm açıklaması..."></textarea></div>
+            <div class="form-grid-2">
+              <div class="form-group"><label>Puan (ör: 4.9/5)</label><input type="text" id="ben_rating_value" placeholder="4.9/5" /></div>
+              <div class="form-group"><label>Puan Etiketi</label><input type="text" id="ben_rating_label" placeholder="50.000+ değerlendirme" /></div>
+            </div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header"><div><h3>Avantaj 1</h3></div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>Başlık</label><input type="text" id="ben_item1_title" placeholder="%100 Bitkisel İçerikler" /></div>
+            <div class="form-group"><label>Açıklama</label><textarea id="ben_item1_text" rows="2" placeholder="Avantaj açıklaması..."></textarea></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header"><div><h3>Avantaj 2</h3></div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>Başlık</label><input type="text" id="ben_item2_title" placeholder="Yasal & Güvenli" /></div>
+            <div class="form-group"><label>Açıklama</label><textarea id="ben_item2_text" rows="2" placeholder="Avantaj açıklaması..."></textarea></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header"><div><h3>Avantaj 3</h3></div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>Başlık</label><input type="text" id="ben_item3_title" placeholder="Klinik Analizi Tamamlandı" /></div>
+            <div class="form-group"><label>Açıklama</label><textarea id="ben_item3_text" rows="2" placeholder="Avantaj açıklaması..."></textarea></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header"><div><h3>Avantaj 4</h3></div></div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>Başlık</label><input type="text" id="ben_item4_title" placeholder="Hızlı Etki" /></div>
+            <div class="form-group"><label>Açıklama</label><textarea id="ben_item4_text" rows="2" placeholder="Avantaj açıklaması..."></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PAKET FİYATLARI ── -->
+      <div class="page" id="page-packages">
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Tekli Paket</h3><p>1 adet ürün fiyatı</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid-3">
+              <div class="form-group"><label>Paket Adı</label><input type="text" id="pkg1_name" placeholder="Tekli" /></div>
+              <div class="form-group"><label>Miktar</label><input type="text" id="pkg1_qty" placeholder="1 Adet" /></div>
+              <div class="form-group"><label>Fiyat (₺)</label><input type="number" id="pkg1_price" placeholder="199" /></div>
+            </div>
+            <div class="form-group"><label>Tasarruf Metni (boş bırakılabilir)</label><input type="text" id="pkg1_save" placeholder="" /></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Üçlü Paket</h3><p>3 adet ürün fiyatı</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid-3">
+              <div class="form-group"><label>Paket Adı</label><input type="text" id="pkg2_name" placeholder="Üçlü" /></div>
+              <div class="form-group"><label>Miktar</label><input type="text" id="pkg2_qty" placeholder="3 Adet" /></div>
+              <div class="form-group"><label>Fiyat (₺)</label><input type="number" id="pkg2_price" placeholder="549" /></div>
+            </div>
+            <div class="form-group"><label>Tasarruf Metni</label><input type="text" id="pkg2_save" placeholder="Tasarruf: ₺48" /></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>20'li Stand Paket</h3><p>Toplu satış paketi</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-grid-3">
+              <div class="form-group"><label>Paket Adı</label><input type="text" id="pkg3_name" placeholder="20'li Stand" /></div>
+              <div class="form-group"><label>Miktar</label><input type="text" id="pkg3_qty" placeholder="20 Adet" /></div>
+              <div class="form-group"><label>Fiyat (₺)</label><input type="number" id="pkg3_price" placeholder="2499" /></div>
+            </div>
+            <div class="form-group"><label>Tasarruf Metni</label><input type="text" id="pkg3_save" placeholder="Adet başı ₺125" /></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GÜVEN BANTLARI ── -->
+      <div class="page" id="page-trustbar">
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Güven Bantları</h3><p>Sayfanın üst kısmındaki 5 güven maddesi</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>Madde 1</label><input type="text" id="trust1" placeholder="Bitkisel & Doğal" /></div>
+            <div class="form-group"><label>Madde 2</label><input type="text" id="trust2" placeholder="Klinik Analizi Tamamlandı" /></div>
+            <div class="form-group"><label>Madde 3</label><input type="text" id="trust3" placeholder="Ücretsiz Kargo" /></div>
+            <div class="form-group"><label>Madde 4</label><input type="text" id="trust4" placeholder="Türkiye'de Yasal İzinli" /></div>
+            <div class="form-group"><label>Madde 5</label><input type="text" id="trust5" placeholder="30 Gün İade" /></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FOOTER ── -->
+      <div class="page" id="page-footer">
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Footer Marka Metni</h3><p>Logo altındaki açıklama ve telif hakkı</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>Marka Açıklaması</label><textarea id="footer_brand_desc" rows="3" placeholder="Alkol sonrası toparlanma sürecini destekleyen..."></textarea></div>
+            <div class="form-group"><label>Telif Hakkı Metni</label><input type="text" id="footer_copyright" placeholder="© 2026 Promil Detoks. Tüm hakları saklıdır." /></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>İletişim Bilgileri</h3><p>Footer'da görünen iletişim bilgileri</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>E-posta</label><input type="email" id="footer_contact_email" placeholder="info@promildetoks.com" /></div>
+            <div class="form-group"><label>Telefon</label><input type="text" id="footer_contact_phone" placeholder="0850 XXX XX XX" /></div>
+            <div class="form-group"><label>Adres</label><input type="text" id="footer_contact_address" placeholder="İstanbul, Türkiye" /></div>
+          </div>
+        </div>
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Sosyal Medya</h3><p>Footer'daki sosyal medya linkleri</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>Instagram</label><input type="url" id="footer_instagram" placeholder="https://www.instagram.com/..." /></div>
+            <div class="form-group"><label>Facebook</label><input type="url" id="footer_facebook" placeholder="https://www.facebook.com/..." /></div>
+            <div class="form-group"><label>Twitter / X</label><input type="url" id="footer_twitter" placeholder="https://twitter.com/..." /></div>
+            <div class="form-group"><label>YouTube</label><input type="url" id="footer_youtube" placeholder="https://www.youtube.com/..." /></div>
+            <div class="form-group"><label>TikTok</label><input type="url" id="footer_tiktok" placeholder="https://www.tiktok.com/..." /></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── iYZİCO API ── -->
+      <div class="page" id="page-iyzico">
+
+        <!-- Durum Banner -->
+        <div class="iyzico-status-banner" id="iyzicoStatusBanner">
+          <div class="iyzico-status-icon pending" id="iyzicoStatusIcon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="iyzico-status-text">
+            <strong id="iyzicoStatusTitle">API Anahtarları Bekleniyor</strong>
+            <span id="iyzicoStatusDesc">iyzico API anahtarlarınızı aşağıya girerek ödeme entegrasyonunu aktif edin.</span>
+          </div>
+          <span class="iyzico-badge pending" id="iyzicoStatusBadge">Pasif</span>
+        </div>
+
+        <!-- API Anahtarları -->
+        <div class="card admin-form">
+          <div class="card-header">
+            <div>
+              <h3>iyzico API Anahtarları</h3>
+              <p>iyzico Merchant Panel'den alacağınız API bilgileri</p>
+            </div>
+            <a href="https://merchant.iyzipay.com" target="_blank" class="btn btn-secondary btn-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+              Merchant Panel
+            </a>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
+
+            <!-- Ortam Seçimi -->
+            <div class="form-group">
+              <label>Ortam</label>
+              <div style="display:flex;gap:12px;margin-top:8px;">
+                <label class="iyzico-env-option" id="envSandboxLabel">
+                  <input type="radio" name="iyzico_env" id="iyzico_env_sandbox" value="sandbox" checked />
+                  <span class="iyzico-env-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <strong>Sandbox</strong>
+                    <small>Test ortamı</small>
+                  </span>
+                </label>
+                <label class="iyzico-env-option" id="envProdLabel">
+                  <input type="radio" name="iyzico_env" id="iyzico_env_prod" value="production" />
+                  <span class="iyzico-env-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <strong>Production</strong>
+                    <small>Canlı ortam</small>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>API Key</label>
+                <div class="input-with-eye">
+                  <input type="password" id="iyzico_api_key" placeholder="sandbox-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+                  <button type="button" class="eye-btn" onclick="toggleVisibility('iyzico_api_key', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Secret Key</label>
+                <div class="input-with-eye">
+                  <input type="password" id="iyzico_secret_key" placeholder="sandbox-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+                  <button type="button" class="eye-btn" onclick="toggleVisibility('iyzico_secret_key', this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Base URL</label>
+              <input type="text" id="iyzico_base_url" placeholder="https://sandbox-api.iyzipay.com" />
+              <small style="color:var(--gray-400);font-size:.72rem;margin-top:4px;display:block;">Sandbox: https://sandbox-api.iyzipay.com &nbsp;|&nbsp; Production: https://api.iyzipay.com</small>
+            </div>
+
+            <div style="display:flex;gap:10px;padding-top:4px;">
+              <button type="button" class="btn btn-secondary" id="iyzicoTestBtn" onclick="testIyzicoConnection()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                Bağlantıyı Test Et
+              </button>
+              <button type="button" class="btn btn-primary" onclick="saveIyzicoKeys()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Kaydet
+              </button>
+            </div>
+
+            <div class="iyzico-test-result" id="iyzicoTestResult" style="display:none;"></div>
+          </div>
+        </div>
+
+        <!-- Webhook Ayarları -->
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Webhook Ayarları</h3><p>iyzico ödeme bildirimlerini almak için webhook URL'si</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group">
+              <label>Webhook URL (iyzico Merchant Panel'e ekleyin)</label>
+              <div class="input-with-copy">
+                <input type="text" id="iyzico_webhook_url" placeholder="https://sizin-siteniz.com/api/iyzico-webhook" />
+                <button type="button" class="copy-btn" onclick="copyWebhookUrl()">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  Kopyala
+                </button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Webhook Secret Key</label>
+              <div class="input-with-eye">
+                <input type="password" id="iyzico_webhook_secret" placeholder="Webhook doğrulama anahtarı..." autocomplete="off" />
+                <button type="button" class="eye-btn" onclick="toggleVisibility('iyzico_webhook_secret', this)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ödeme Ayarları -->
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Ödeme Ayarları</h3><p>Ödeme sayfası ve taksit seçenekleri</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group">
+              <label>Para Birimi</label>
+              <select id="iyzico_currency">
+                <option value="TRY" selected>TRY – Türk Lirası</option>
+                <option value="USD">USD – Amerikan Doları</option>
+                <option value="EUR">EUR – Euro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Taksit Seçenekleri</label>
+              <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;">
+                <label style="display:flex;align-items:center;gap:6px;font-size:.83rem;cursor:pointer;"><input type="checkbox" id="inst_1" checked /> Tek Çekim</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:.83rem;cursor:pointer;"><input type="checkbox" id="inst_2" /> 2 Taksit</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:.83rem;cursor:pointer;"><input type="checkbox" id="inst_3" /> 3 Taksit</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:.83rem;cursor:pointer;"><input type="checkbox" id="inst_6" /> 6 Taksit</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:.83rem;cursor:pointer;"><input type="checkbox" id="inst_9" /> 9 Taksit</label>
+                <label style="display:flex;align-items:center;gap:6px;font-size:.83rem;cursor:pointer;"><input type="checkbox" id="inst_12" /> 12 Taksit</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>3D Secure</label>
+              <div class="toggle-wrap" style="margin-top:8px;">
+                <label class="toggle">
+                  <input type="checkbox" id="iyzico_3ds" checked />
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">3D Secure ödemelerini zorunlu kıl (önerilir)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entegrasyon Kılavuzu -->
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Entegrasyon Kılavuzu</h3><p>iyzico API'yi sitenize bağlamak için adımlar</p></div>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div class="iyzico-step">
+                <div class="iyzico-step-num">1</div>
+                <div>
+                  <strong>iyzico Merchant hesabı açın</strong>
+                  <p><a href="https://merchant.iyzipay.com/register" target="_blank" style="color:var(--accent-dark);">merchant.iyzipay.com/register</a> adresinden ücretsiz hesap oluşturun.</p>
+                </div>
+              </div>
+              <div class="iyzico-step">
+                <div class="iyzico-step-num">2</div>
+                <div>
+                  <strong>API anahtarlarınızı alın</strong>
+                  <p>Merchant Panel → Ayarlar → API Bilgileri bölümünden API Key ve Secret Key'i kopyalayın.</p>
+                </div>
+              </div>
+              <div class="iyzico-step">
+                <div class="iyzico-step-num">3</div>
+                <div>
+                  <strong>Yukarıdaki formu doldurun</strong>
+                  <p>Önce Sandbox ortamında test edin, her şey çalışınca Production'a geçin.</p>
+                </div>
+              </div>
+              <div class="iyzico-step">
+                <div class="iyzico-step-num">4</div>
+                <div>
+                  <strong>Backend entegrasyonu</strong>
+                  <p>Ödeme işlemleri için bir backend (Node.js, PHP vb.) gereklidir. API anahtarları burada saklanır ve hazır olduğunda backend koduna aktarılır.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-iyzico -->
+
+      <!-- ── MAĞAZA ÜRÜNLERİ ── -->
+      <div class="page" id="page-store">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+          <div>
+            <h2 style="font-size:1.1rem;font-weight:700;color:var(--dark);">Mağaza Ürünleri</h2>
+            <p style="font-size:.8rem;color:var(--gray-600);margin-top:2px;">Ürün bilgileri, görseller, fiyatlar ve kargo ayarları</p>
+          </div>
+          <button class="btn btn-primary" onclick="addStoreProduct()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Yeni Ürün Ekle
+          </button>
+        </div>
+        <div id="storeProductsContainer"></div>
+      </div>
+
+      <!-- ── SİPARİŞLER ── -->
+      <div class="page" id="page-orders">
+        <!-- Özet Kartlar -->
+        <div class="stats-grid" style="margin-bottom:24px;">
+          <div class="stat-card">
+            <div class="stat-card-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+            <div class="stat-card-label">Toplam Sipariş</div>
+            <div class="stat-card-value" id="orderTotalCount">0</div>
+            <div class="stat-card-sub">Tüm zamanlar</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="stat-card-label">Bekleyen</div>
+            <div class="stat-card-value" id="orderPendingCount">0</div>
+            <div class="stat-card-sub">İşlem bekliyor</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+            <div class="stat-card-label">Kargoda</div>
+            <div class="stat-card-value" id="orderShippedCount">0</div>
+            <div class="stat-card-sub">Yolda</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="stat-card-label">Teslim Edildi</div>
+            <div class="stat-card-value" id="orderDeliveredCount">0</div>
+            <div class="stat-card-sub">Tamamlandı</div>
+          </div>
+        </div>
+
+        <!-- Filtre & Arama -->
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-body" style="padding:16px 24px;">
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+              <input type="text" id="orderSearch" placeholder="Müşteri adı, e-posta veya sipariş no ara..." style="flex:1;min-width:200px;padding:9px 14px;border:1.5px solid var(--gray-200);border-radius:var(--r-md);font-family:inherit;font-size:.83rem;color:var(--dark);outline:none;" oninput="filterOrders()" />
+              <select id="orderStatusFilter" style="padding:9px 14px;border:1.5px solid var(--gray-200);border-radius:var(--r-md);font-family:inherit;font-size:.83rem;color:var(--dark);outline:none;background:white;" onchange="filterOrders()">
+                <option value="">Tüm Durumlar</option>
+                <option value="pending">Bekliyor</option>
+                <option value="processing">Hazırlanıyor</option>
+                <option value="shipped">Kargoda</option>
+                <option value="delivered">Teslim Edildi</option>
+                <option value="cancelled">İptal</option>
+              </select>
+              <button class="btn btn-secondary btn-sm" onclick="exportOrders()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                CSV İndir
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sipariş Listesi -->
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Sipariş Listesi</h3><p>Tüm siparişler ve durumları</p></div>
+            <button class="btn btn-secondary btn-sm" onclick="loadOrders()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Yenile
+            </button>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div id="ordersTableContainer">
+              <div style="padding:40px;text-align:center;color:var(--gray-400);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:48px;height:48px;margin:0 auto 12px;display:block;"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                <p style="font-size:.88rem;font-weight:600;">Henüz sipariş yok</p>
+                <p style="font-size:.78rem;margin-top:4px;">Siparişler burada görünecek</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── KULLANICILAR ── -->
+      <div class="page" id="page-users">
+        <!-- Özet Kartlar -->
+        <div class="stats-grid" style="margin-bottom:24px;">
+          <div class="stat-card">
+            <div class="stat-card-icon blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            </div>
+            <div class="stat-card-label">Toplam Üye</div>
+            <div class="stat-card-value" id="userTotalCount">0</div>
+            <div class="stat-card-sub">Kayıtlı kullanıcı</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="stat-card-label">Bu Ay Yeni</div>
+            <div class="stat-card-value" id="userNewCount">0</div>
+            <div class="stat-card-sub">Son 30 gün</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="stat-card-label">Adres Kayıtlı</div>
+            <div class="stat-card-value" id="userWithAddressCount">0</div>
+            <div class="stat-card-sub">Adres bilgisi olan</div>
+          </div>
+        </div>
+
+        <!-- Filtre & Arama -->
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-body" style="padding:16px 24px;">
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+              <input type="text" id="userSearch" placeholder="Ad, soyad veya e-posta ara..." style="flex:1;min-width:200px;padding:9px 14px;border:1.5px solid var(--gray-200);border-radius:var(--r-md);font-family:inherit;font-size:.83rem;color:var(--dark);outline:none;" oninput="filterUsers()" />
+              <button class="btn btn-secondary btn-sm" onclick="exportUsers()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                CSV İndir
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kullanıcı Listesi -->
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Kullanıcı Listesi</h3><p>Kayıtlı tüm kullanıcılar</p></div>
+            <button class="btn btn-secondary btn-sm" onclick="loadUsers()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Yenile
+            </button>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div id="usersTableContainer">
+              <div style="padding:40px;text-align:center;color:var(--gray-400);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:48px;height:48px;margin:0 auto 12px;display:block;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <p style="font-size:.88rem;font-weight:600;">Henüz kullanıcı yok</p>
+                <p style="font-size:.78rem;margin-top:4px;">Kayıt olan kullanıcılar burada görünecek</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── BAYİLİK BAŞVURULARI ── -->
+      <div class="page" id="page-dealers">
+        <!-- Özet Kartlar -->
+        <div class="stats-grid" style="margin-bottom:24px;">
+          <div class="stat-card">
+            <div class="stat-card-icon blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="stat-card-label">Toplam Başvuru</div>
+            <div class="stat-card-value" id="dealerTotalCount">0</div>
+            <div class="stat-card-sub">Tüm zamanlar</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="stat-card-label">Bekleyen</div>
+            <div class="stat-card-value" id="dealerPendingCount">0</div>
+            <div class="stat-card-sub">İnceleme bekliyor</div>
+          </div>
+        </div>
+
+        <!-- Filtre & Arama -->
+        <div class="card" style="margin-bottom:20px;">
+          <div class="card-body" style="padding:16px 24px;">
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+              <input type="text" id="dealerSearch" placeholder="Ad, e-posta veya şehir ara..." style="flex:1;min-width:200px;padding:9px 14px;border:1.5px solid var(--gray-200);border-radius:var(--r-md);font-family:inherit;font-size:.83rem;color:var(--dark);outline:none;" oninput="filterDealers()" />
+              <select id="dealerStatusFilter" style="padding:9px 14px;border:1.5px solid var(--gray-200);border-radius:var(--r-md);font-family:inherit;font-size:.83rem;color:var(--dark);outline:none;background:white;" onchange="filterDealers()">
+                <option value="">Tüm Durumlar</option>
+                <option value="pending">Bekliyor</option>
+                <option value="contacted">İletişime Geçildi</option>
+                <option value="approved">Onaylandı</option>
+                <option value="rejected">Reddedildi</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Başvuru Listesi -->
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Bayilik Başvuruları</h3><p>Siteden gelen tüm bayilik başvuruları</p></div>
+            <button class="btn btn-secondary btn-sm" onclick="loadDealers()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Yenile
+            </button>
+          </div>
+          <div class="card-body" style="padding:0;">
+            <div id="dealersTableContainer">
+              <div style="padding:40px;text-align:center;color:var(--gray-400);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:48px;height:48px;margin:0 auto 12px;display:block;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <p style="font-size:.88rem;font-weight:600;">Henüz başvuru yok</p>
+                <p style="font-size:.78rem;margin-top:4px;">Siteden gelen bayilik başvuruları burada görünecek</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── GÖRSELLER ── -->
+      <div class="page" id="page-images">
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Logo</h3><p>Site logosu (header ve footer'da görünür)</p></div>
+          </div>
+          <div class="card-body">
+            <div class="image-upload-area" id="logoUploadArea" onclick="document.getElementById('logoFileInput').click()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:40px;height:40px;color:var(--gray-400);"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <p>Logo yüklemek için tıklayın veya sürükleyin</p>
+              <small>PNG, JPG, SVG · Maks 2MB · Önerilen: 200×60px</small>
+            </div>
+            <input type="file" id="logoFileInput" accept="image/*" style="display:none" onchange="handleImageUpload('logo', this)" />
+            <div class="image-preview-wrap" id="logoPreview" style="display:none;">
+              <img id="logoPreviewImg" src="" alt="Logo önizleme" />
+              <div class="image-preview-actions">
+                <span id="logoFileName" style="font-size:.8rem;color:var(--gray-600);"></span>
+                <button class="btn btn-danger btn-sm" onclick="removeImage('logo')">Kaldır</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Favicon</h3><p>Tarayıcı sekmesinde görünen küçük ikon</p></div>
+          </div>
+          <div class="card-body">
+            <div class="image-upload-area" id="faviconUploadArea" onclick="document.getElementById('faviconFileInput').click()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:40px;height:40px;color:var(--gray-400);"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <p>Favicon yüklemek için tıklayın</p>
+              <small>PNG, ICO · Maks 512KB · Önerilen: 32×32px</small>
+            </div>
+            <input type="file" id="faviconFileInput" accept="image/*,.ico" style="display:none" onchange="handleImageUpload('favicon', this)" />
+            <div class="image-preview-wrap" id="faviconPreview" style="display:none;">
+              <img id="faviconPreviewImg" src="" alt="Favicon önizleme" style="max-width:64px;" />
+              <div class="image-preview-actions">
+                <span id="faviconFileName" style="font-size:.8rem;color:var(--gray-600);"></span>
+                <button class="btn btn-danger btn-sm" onclick="removeImage('favicon')">Kaldır</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Hero Arka Plan Görseli</h3><p>Hero bölümünün arka plan görseli veya videosu</p></div>
+          </div>
+          <div class="card-body">
+            <div class="image-upload-area" id="heroBgUploadArea" onclick="document.getElementById('heroBgFileInput').click()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:40px;height:40px;color:var(--gray-400);"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <p>Hero görseli yüklemek için tıklayın</p>
+              <small>JPG, PNG, WebP · Maks 5MB · Önerilen: 1920×1080px</small>
+            </div>
+            <input type="file" id="heroBgFileInput" accept="image/*" style="display:none" onchange="handleImageUpload('hero_bg', this)" />
+            <div class="image-preview-wrap" id="heroBgPreview" style="display:none;">
+              <img id="heroBgPreviewImg" src="" alt="Hero arka plan önizleme" />
+              <div class="image-preview-actions">
+                <span id="heroBgFileName" style="font-size:.8rem;color:var(--gray-600);"></span>
+                <button class="btn btn-danger btn-sm" onclick="removeImage('hero_bg')">Kaldır</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Ürün Görselleri – Toz Formül</h3><p>Ürün sayfasında slider'da gösterilecek görseller</p></div>
+            <button class="btn btn-secondary btn-sm" onclick="document.getElementById('productImgFileInput').click()">+ Görsel Ekle</button>
+          </div>
+          <div class="card-body">
+            <input type="file" id="productImgFileInput" accept="image/*" multiple style="display:none" onchange="handleProductImagesUpload(this)" />
+            <div class="product-images-grid" id="productImagesGrid">
+              <div class="product-img-placeholder" onclick="document.getElementById('productImgFileInput').click()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:28px;height:28px;color:var(--gray-400);"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Görsel Ekle</span>
+              </div>
+            </div>
+            <p style="font-size:.78rem;color:var(--gray-400);margin-top:12px;">JPG, PNG, WebP · Her biri maks 3MB · Önerilen: 800×800px kare</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div><h3>OG / Sosyal Medya Görseli</h3><p>Sosyal medyada paylaşıldığında görünen önizleme görseli</p></div>
+          </div>
+          <div class="card-body">
+            <div class="image-upload-area" id="ogImgUploadArea" onclick="document.getElementById('ogImgFileInput').click()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:40px;height:40px;color:var(--gray-400);"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <p>OG görseli yüklemek için tıklayın</p>
+              <small>JPG, PNG · Maks 2MB · Önerilen: 1200×630px</small>
+            </div>
+            <input type="file" id="ogImgFileInput" accept="image/*" style="display:none" onchange="handleImageUpload('og_image', this)" />
+            <div class="image-preview-wrap" id="ogImgPreview" style="display:none;">
+              <img id="ogImgPreviewImg" src="" alt="OG görsel önizleme" />
+              <div class="image-preview-actions">
+                <span id="ogImgFileName" style="font-size:.8rem;color:var(--gray-600);"></span>
+                <button class="btn btn-danger btn-sm" onclick="removeImage('og_image')">Kaldır</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+          <button class="btn btn-primary" onclick="uploadAllImages()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+            Tüm Görselleri GitHub'a Yükle
+          </button>
+        </div>
+      </div>
+
+      <!-- ── SEO ── -->
+      <div class="page" id="page-seo">
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Temel SEO</h3><p>Arama motorlarında görünen başlık ve açıklama</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group">
+              <label>Sayfa Başlığı (Title Tag)</label>
+              <input type="text" id="seo_title" placeholder="Promil Detoks – Alkol Sonrası Doğal Toparlanma" maxlength="70" />
+              <small style="color:var(--gray-400);font-size:.72rem;margin-top:4px;display:block;">Önerilen: 50–60 karakter. <span id="seoTitleCount">0</span>/70</small>
+            </div>
+            <div class="form-group">
+              <label>Meta Açıklama (Description)</label>
+              <textarea id="seo_description" rows="3" placeholder="Promil Detoks'un bitki özlü özel formülüyle alkol sonrası yorgunluk, baş ağrısı ve mide rahatsızlıklarını geride bırak." maxlength="160"></textarea>
+              <small style="color:var(--gray-400);font-size:.72rem;margin-top:4px;display:block;">Önerilen: 120–160 karakter. <span id="seoDescCount">0</span>/160</small>
+            </div>
+            <div class="form-group">
+              <label>Anahtar Kelimeler (Keywords)</label>
+              <input type="text" id="seo_keywords" placeholder="promil detoks, alkol sonrası toparlanma, bitkisel detoks" />
+              <small style="color:var(--gray-400);font-size:.72rem;margin-top:4px;display:block;">Virgülle ayırın</small>
+            </div>
+            <div class="form-group">
+              <label>Canonical URL</label>
+              <input type="url" id="seo_canonical" placeholder="https://promildetoks.com" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Open Graph (Sosyal Medya)</h3><p>Facebook, Twitter ve diğer platformlarda paylaşım önizlemesi</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group">
+              <label>OG Başlık</label>
+              <input type="text" id="og_title" placeholder="Promil Detoks – Alkol Sonrası Doğal Toparlanma" />
+            </div>
+            <div class="form-group">
+              <label>OG Açıklama</label>
+              <textarea id="og_description" rows="2" placeholder="Bitki özlü formülle alkol sonrası toparlan..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>OG Görsel URL</label>
+              <input type="url" id="og_image_url" placeholder="https://promildetoks.com/images/og-image.jpg" />
+              <small style="color:var(--gray-400);font-size:.72rem;margin-top:4px;display:block;">Görseller sekmesinden yükleyip URL'yi buraya yapıştırın. Önerilen: 1200×630px</small>
+            </div>
+            <div class="form-group">
+              <label>Twitter Card Tipi</label>
+              <select id="twitter_card">
+                <option value="summary_large_image">summary_large_image (Büyük görsel)</option>
+                <option value="summary">summary (Küçük görsel)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Teknik SEO</h3><p>Robot direktifleri ve yapısal ayarlar</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group">
+              <label>Robots</label>
+              <select id="seo_robots">
+                <option value="index, follow">index, follow (Önerilen)</option>
+                <option value="noindex, nofollow">noindex, nofollow</option>
+                <option value="index, nofollow">index, nofollow</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Dil</label>
+              <select id="seo_lang">
+                <option value="tr">Türkçe (tr)</option>
+                <option value="en">İngilizce (en)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Google Analytics ID (opsiyonel)</label>
+              <input type="text" id="seo_ga_id" placeholder="G-XXXXXXXXXX" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SEO Önizleme -->
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Google Arama Önizlemesi</h3><p>Arama sonuçlarında nasıl görüneceği</p></div>
+          </div>
+          <div class="card-body">
+            <div class="seo-preview">
+              <div class="seo-preview-url" id="seoPreviewUrl">promildetoks.com</div>
+              <div class="seo-preview-title" id="seoPreviewTitle">Promil Detoks – Alkol Sonrası Doğal Toparlanma</div>
+              <div class="seo-preview-desc" id="seoPreviewDesc">Promil Detoks'un bitki özlü özel formülüyle alkol sonrası yorgunluk, baş ağrısı ve mide rahatsızlıklarını geride bırak.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SETTINGS ── -->
+      <div class="page" id="page-settings">
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Site Bilgileri</h3><p>SEO ve meta bilgileri</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group"><label>Sayfa Başlığı (Title)</label><input type="text" id="site_title" placeholder="Promil Detoks – Alkol Sonrası Doğal Toparlanma" /></div>
+            <div class="form-group"><label>Meta Açıklama</label><textarea id="site_description" rows="2" placeholder="Site açıklaması..."></textarea></div>
+          </div>
+        </div>
+
+        <div class="card admin-form">
+          <div class="card-header">
+            <div><h3>Duyuru Bandı</h3><p>Sayfanın üstünde gösterilecek duyuru</p></div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="form-group">
+              <label>Duyuru Aktif</label>
+              <div class="toggle-wrap" style="margin-top:8px;">
+                <label class="toggle">
+                  <input type="checkbox" id="announcement_enabled" />
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Duyuru bandını göster</span>
+              </div>
+            </div>
+            <div class="form-group"><label>Duyuru Metni</label><input type="text" id="announcement_text" placeholder="🎉 İlk siparişinde %30 indirim! Kod: PROMIL30" /></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div><h3>GitHub Bağlantısı</h3><p>Mevcut repo ve branch bilgisi</p></div>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--gray-100);">
+                <span style="font-size:.83rem;color:var(--gray-600);">Repository</span>
+                <strong style="font-size:.83rem;" id="repoDisplay2">–</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--gray-100);">
+                <span style="font-size:.83rem;color:var(--gray-600);">Branch</span>
+                <strong style="font-size:.83rem;" id="branchDisplay2">–</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;">
+                <span style="font-size:.83rem;color:var(--gray-600);">Content dosyası</span>
+                <strong style="font-size:.83rem;">data/content.json</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── COMMITS ── -->
+      <div class="page" id="page-commits">
+        <div class="card">
+          <div class="card-header">
+            <div><h3>Commit Geçmişi</h3><p>data/content.json dosyasındaki son 10 değişiklik</p></div>
+            <button class="btn btn-secondary btn-sm" onclick="refreshCommits()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Yenile
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="commit-list" id="commitList">
+              <p style="color:var(--gray-400);font-size:.83rem;padding:16px 0;">Yükleniyor...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+
+    <!-- Save Bar -->
+    <div class="save-bar" id="saveBar">
+      <div class="save-bar-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Kaydedilmemiş değişiklikler var
+      </div>
+      <div class="save-bar-actions">
+        <button class="btn btn-secondary" id="discardBtn">İptal</button>
+        <button class="btn btn-primary" id="saveBtnBottom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Kaydet &amp; Yayınla
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /main-content -->
+</div><!-- /adminApp -->
+
+<script>
+  // GitHub konfigürasyonu
+  // Token: 1) /admin/config.json (local geliştirme), 2) /api/admin-config (Vercel production)
+  window.ADMIN_CONFIG = {
+    github: {
+      token:  "",
+      repo:   "busebolova/promil-detoks",
+      branch: "main"
+    }
+  };
+
+  // Önce local config.json'dan yükle (local geliştirme için)
+  (function loadLocalConfig() {
+    try {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/admin/config.json', false); // sync - DOMContentLoaded öncesi
+      xhr.send();
+      if (xhr.status === 200) {
+        var cfg = JSON.parse(xhr.responseText);
+        if (cfg && cfg.github && cfg.github.token) {
+          window.ADMIN_CONFIG.github.token  = cfg.github.token;
+          window.ADMIN_CONFIG.github.repo   = cfg.github.repo   || window.ADMIN_CONFIG.github.repo;
+          window.ADMIN_CONFIG.github.branch = cfg.github.branch || window.ADMIN_CONFIG.github.branch;
+          window._configSource = 'local';
+        }
+      }
+    } catch(e) { /* config.json yoksa sessizce geç */ }
+  })();
+
+  // API'den token yükle (Vercel production için — async, login sırasında çağrılır)
+  window.loadAdminConfigFromAPI = function(password) {
+    return fetch('/api/admin-config', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: password })
+    })
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(cfg) {
+      if (cfg && cfg.github && cfg.github.token) {
+        window.ADMIN_CONFIG.github.token  = cfg.github.token;
+        window.ADMIN_CONFIG.github.repo   = cfg.github.repo   || window.ADMIN_CONFIG.github.repo;
+        window.ADMIN_CONFIG.github.branch = cfg.github.branch || window.ADMIN_CONFIG.github.branch;
+        window._configSource = 'api';
+        return true;
+      }
+      return false;
+    })
+    .catch(function() { return false; });
+  };
+</script>
+<script src="/admin/admin.js"></script>
+</body>
+</html>

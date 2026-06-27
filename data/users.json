@@ -1,0 +1,56 @@
+[
+  {
+    "id": "USR-1779061163256",
+    "firstName": "Buse 222",
+    "lastName": "Bolova",
+    "email": "busebolovarslan@gmail.com",
+    "phone": "18018749002",
+    "passwordHash": "73cfefb66e724e79302b633e9cd145820e7a11827998847fd3b63bcbbab7a75c",
+    "address": {
+      "line": "",
+      "city": "",
+      "district": "",
+      "zip": ""
+    },
+    "token": "555f5fd3860f99366ea08fd668402bf66df93d96fdcb4597f912c468372154b6",
+    "tokenExpiry": "2026-06-17T12:00:36.855Z",
+    "createdAt": "2026-05-17T23:39:23.256Z",
+    "updatedAt": "2026-05-18T12:00:36.855Z"
+  },
+  {
+    "id": "USR-1779089761341",
+    "firstName": "MEHMET CAN",
+    "lastName": "KIRMIZIGÜL",
+    "email": "mehmetcnkirmizigul@hotmail.com",
+    "phone": "05324160964",
+    "passwordHash": "050c9e43a333ff5808a939b48c1ebb1795511673ba039bb8be2a327887dc08a5",
+    "address": {
+      "line": "DEĞİRMİÇEM MAH. 16051 NOLU SOKAK NO: 14 İNCİLİPINAR İŞ MERKEZİ KAT:6/604",
+      "city": "GAZİANTEP",
+      "district": "ŞEHİTKAMİL",
+      "zip": "27090"
+    },
+    "token": "b5c8c0fd78d58f1ce753026697fedbf4a3f084f164ffa3c81d8f0d3fbdf73d26",
+    "tokenExpiry": "2026-06-17T07:36:01.341Z",
+    "createdAt": "2026-05-18T07:36:01.341Z",
+    "updatedAt": "2026-05-18T07:38:03.133Z"
+  },
+  {
+    "id": "USR-1779090409021",
+    "firstName": "Buse",
+    "lastName": "Bolova",
+    "email": "rettocreative@gmail.com",
+    "phone": "18018749002",
+    "passwordHash": "7528f888c9c28e3212173e02436d5ce932f9c490f7e2ecdc116ae4729c732690",
+    "address": {
+      "line": "ataşehir mah. 9019 /20 sok.",
+      "city": "izmit",
+      "district": "çili",
+      "zip": "84058"
+    },
+    "token": "429a67f4439c5cdb75a8738a3616f5c759fc8ec8c0ca9c76a6810ced2d815001",
+    "tokenExpiry": "2026-06-17T07:46:49.021Z",
+    "createdAt": "2026-05-18T07:46:49.021Z",
+    "updatedAt": "2026-05-18T07:48:22.104Z"
+  }
+]

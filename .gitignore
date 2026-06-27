@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Screenshots (opsiyonel, istersen kaldırabilirsin)
+screenshots/
+
+# Admin config (token içerir, GitHub'a push edilmez)
+admin/config.json
+
+# Environment variables (API anahtarları — ASLA git'e ekleme!)
+.env
+.env.local
+.env.production
+.env.development
+test-iyzico.js
+
+# NOT: data/users.json şifre hash'leri içerir.
+# Vercel production'da GITHUB_TOKEN env değişkeni ile GitHub API üzerinden yönetilir.
+# Local geliştirmede bu dosya git'te tutulur (boş array ile başlar).
+# Gerçek kullanıcı verileri production'da GitHub repo'sunda şifreli hash olarak saklanır.

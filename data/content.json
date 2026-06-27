@@ -1,0 +1,263 @@
+{
+  "site": {
+    "title": "Promil Detoks – Alkol Sonrası Doğal Toparlanma",
+    "description": "Promil Detoks'un bitki özlü özel formülüyle alkol sonrası yorgunluk, baş ağrısı ve mide rahatsızlıklarını geride bırak.",
+    "badge": "%100 Doğal & Bitkisel Formül"
+  },
+  "seo": {
+    "title": "",
+    "description": "",
+    "keywords": "",
+    "canonical": "",
+    "og_title": "",
+    "og_description": "",
+    "og_image": "",
+    "twitter_card": "summary_large_image",
+    "robots": "index, follow",
+    "lang": "tr",
+    "ga_id": ""
+  },
+  "images": {
+    "logo": "",
+    "favicon": "",
+    "hero_bg": "",
+    "hero_video": "",
+    "og_image": ""
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/promildetoks/",
+    "facebook": "",
+    "twitter": "",
+    "youtube": "",
+    "tiktok": ""
+  },
+  "hero": {
+    "badge": "%100 Doğal & Bitkisel Formül",
+    "title_white1": "Alkol Sonrası",
+    "title_green": "Hızlı Toparlan,",
+    "title_white2": "Güne Hazır Ol",
+    "description": "Promil Detoks'un bitki özlü özel formülüyle alkol sonrası yorgunluk, baş ağrısı ve mide rahatsızlıklarını geride bırak. Türkiye'de yasal izinli, klinik analizi tamamlanmış güvenli ürün.",
+    "cta_primary": "Ürünleri Keşfet",
+    "cta_secondary": "Nasıl Çalışır?",
+    "stat1_num": "50K+",
+    "stat1_label": "Mutlu Kullanıcı",
+    "stat2_num": "%98",
+    "stat2_label": "Memnuniyet",
+    "stat3_num": "2",
+    "stat3_label": "Özel Formül",
+    "badge_float_1": "",
+    "badge_float_2": ""
+  },
+  "trust_bar": [
+    {
+      "icon": "leaf",
+      "text": "Bitkisel & Doğal"
+    },
+    {
+      "icon": "microscope",
+      "text": "Klinik Analizi Tamamlandı"
+    },
+    {
+      "icon": "truck",
+      "text": "Ücretsiz Kargo"
+    },
+    {
+      "icon": "shield-check",
+      "text": "Türkiye'de Yasal İzinli"
+    },
+    {
+      "icon": "refresh-ccw",
+      "text": "30 Gün İade"
+    }
+  ],
+  "how_it_works": {
+    "tag": "Süreç",
+    "title": "Nasıl Çalışır?",
+    "description": "3 basit adımda alkol sonrası toparlanma sürecini destekle",
+    "steps": [
+      {
+        "num": "01",
+        "icon": "shopping-cart",
+        "title": "Ürününü Seç",
+        "text": "Toz veya Shot formülünden ihtiyacına uygun olanı seç. Her ikisi de aynı güçlü bitkisel formülle hazırlanmıştır."
+      },
+      {
+        "num": "02",
+        "icon": "package-check",
+        "title": "Kullan",
+        "text": "Alkol tüketimi sonrasında kullan. Toz formülü suyla karıştır, Shot formülünü direkt iç. En iyi sonuç için uyumadan önce kullanılması önerilir."
+      },
+      {
+        "num": "03",
+        "icon": "zap",
+        "title": "Farkı Hisset",
+        "text": "Bitki özlü formül vücudunu destekler, sabah yorgunluğunu ve rahatsızlığını azaltır. Güne hazır uyan."
+      }
+    ]
+  },
+  "products": [
+    {
+      "id": "toz",
+      "badge": "En Çok Satan",
+      "badge_type": "featured",
+      "tag": "Toz Formül",
+      "name": "Promil Detoks Toz",
+      "description": "Alkol sonrası toparlanmayı destekleyen bitki özlü toz formül. Alkol tüketiminin ardından suyla karıştırarak kolayca kullanılır. Türkiye'de gerekli izin ve analizleri tamamlanmış, satışı yasal ve güvenlidir.",
+      "price_old": "",
+      "price_new": 299,
+      "features": [
+        "Bitkisel & Doğal İçerik",
+        "Suyla Karıştırılır",
+        "Klinik Analizi Tamamlandı",
+        "Türkiye'de Yasal İzinli"
+      ],
+      "packages": [
+        {
+          "id": "toz-tekli",
+          "name": "Tekli",
+          "qty": "1 Adet",
+          "price": 299,
+          "save": ""
+        },
+        {
+          "id": "toz-uclu",
+          "name": "Üçlü",
+          "qty": "3 Adet",
+          "price": 799,
+          "save": "Tasarruf: ₺98"
+        },
+        {
+          "id": "toz-stand",
+          "name": "16'lı Stand",
+          "qty": "16 Adet",
+          "price": 3699,
+          "save": "Adet başı ₺231",
+          "featured": true
+        }
+      ],
+      "images": [
+        "images/tekli.jpeg",
+        "images/tekli2.jpeg",
+        "images/tekli3.jpeg"
+      ],
+      "shipping": {
+        "free": true,
+        "carrier": "Yurtiçi Kargo",
+        "days": "2-3"
+      },
+      "coming_soon": false,
+      "coming_soon_tag": "Cok Yakinda"
+    },
+    {
+      "id": "shot",
+      "badge": "Yeni",
+      "badge_type": "new",
+      "tag": "Shot Formül",
+      "name": "Promil Detoks Shot",
+      "description": "Aynı güçlü bitkisel formülün pratik shot versiyonu. Hazır içim, her an yanında. Suyla karıştırmaya gerek yok, direkt tüket.",
+      "price_old": "",
+      "price_new": 199,
+      "features": [
+        "Bitkisel & Doğal İçerik",
+        "Hazır İçim - Suya Gerek Yok",
+        "Klinik Analizi Tamamlandı",
+        "Türkiye'de Yasal İzinli"
+      ],
+      "packages": [
+        {
+          "id": "shot",
+          "name": "Shot",
+          "qty": "1 Adet",
+          "price": 199,
+          "save": ""
+        }
+      ],
+      "images": [
+        "images/shot.jpeg",
+        "images/shot2.jpeg",
+        "images/shot3.jpeg"
+      ],
+      "shipping": {
+        "free": true,
+        "carrier": "Yurtiçi Kargo",
+        "days": "2-3"
+      },
+      "coming_soon": false,
+      "coming_soon_tag": ""
+    }
+  ],
+  "benefits": {
+    "tag": "Neden Promil?",
+    "title": "Farkımızı Hissedin",
+    "description": "Alkol sonrası toparlanma için özel geliştirilmiş, bilimsel analizi tamamlanmış bitkisel formülümüzle sabahları daha iyi hissedin.",
+    "rating_value": "4.9/5",
+    "rating_label": "50.000+ değerlendirme",
+    "items": [
+      {
+        "icon": "leaf",
+        "title": "%100 Bitkisel İçerikler",
+        "text": "Hiçbir yapay katkı maddesi, koruyucu veya dolgu maddesi kullanmıyoruz. Doğanın gücüyle formüle edildi."
+      },
+      {
+        "icon": "shield-check",
+        "title": "Yasal & Güvenli",
+        "text": "Türkiye'de gerekli tüm izin ve analizleri tamamlanmış, satışı yasal ve güvenli bir üründür."
+      },
+      {
+        "icon": "microscope",
+        "title": "Klinik Analizi Tamamlandı",
+        "text": "Bağımsız laboratuvarlarda test edilmiş ve onaylanmış formül. Güvenle kullanabilirsiniz."
+      },
+      {
+        "icon": "zap",
+        "title": "Hızlı Etki",
+        "text": "Toz ve Shot formülleri alkol sonrası toparlanma sürecini destekler, sabah yorgunluğunu azaltır."
+      }
+    ]
+  },
+  "testimonials": [
+    {
+      "text": "Arkadaşlarla eğlenceli bir gecenin ardından sabah işe gitmem gerekiyordu. Promil Detoks Toz'u kullandım ve inanılmaz fark yarattı. Kesinlikle tavsiye ederim!",
+      "author": "Ayşe Y.",
+      "location": "İstanbul",
+      "initials": "AY",
+      "featured": false
+    },
+    {
+      "text": "Promil Detoks Toz'u suyla karıştırıp içtim, sabah inanılmaz fark yarattı. Baş ağrısı ve yorgunluk neredeyse hiç hissettirmiyor. Kesinlikle tavsiye ederim!",
+      "author": "Mehmet K.",
+      "location": "Ankara",
+      "initials": "MK",
+      "featured": true
+    },
+    {
+      "text": "Doğal içerikli olması benim için çok önemliydi. Promil Detoks Toz'u denedim, gerçekten işe yarıyor. Artık her eğlenceli gecenin vazgeçilmezi oldu!",
+      "author": "Zeynep D.",
+      "location": "İzmir",
+      "initials": "ZD",
+      "featured": false
+    }
+  ],
+  "cta": {
+    "title": "Alkol Sonrası Toparlanmayı Kolaylaştır",
+    "description": "İlk siparişinde %30 indirim + ücretsiz kargo fırsatını kaçırma!",
+    "button": "Hemen Başla"
+  },
+  "footer": {
+    "brand_desc": "Alkol sonrası toparlanma sürecini destekleyen, bitki özlü doğal formüllü ürünler. Türkiye'de yasal izinli ve güvenli.",
+    "copyright": "© 2026 Promil Detoks. Tüm hakları saklıdır."
+  },
+  "contact": {
+    "email": "info@lifemixturkey.com",
+    "email2": "lifemixgida@gmail.com",
+    "phone": "0531 669 09 64",
+    "phone2": "0533 946 06 61",
+    "address": "Değirmiçem Mah. 16051 Nolu Sokak No: 14/40 Şehitkamil / Gaziantep",
+    "address_factory": "Burak Mah. 06133 Nolu Sokak No: 1/1 Şehitkamil / Gaziantep",
+    "city": "Gaziantep"
+  },
+  "announcement": {
+    "enabled": false,
+    "text": "🎉 İlk siparişinde %30 indirim! Kod: PROMIL30"
+  }
+}

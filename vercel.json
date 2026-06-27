@@ -1,0 +1,85 @@
+{
+  "version": 2,
+  "functions": {
+    "api/checkout.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/payment-callback.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/send-email.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/debug-env.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/save-order.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/admin-config.js": {
+      "memory": 128,
+      "maxDuration": 10
+    },
+    "api/auth.js": {
+      "memory": 256,
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin",  "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization, x-internal-secret" }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/payment-callback",
+      "dest": "/api/payment-callback.js",
+      "methods": ["GET", "POST"]
+    },
+    {
+      "src": "/api/checkout",
+      "dest": "/api/checkout.js",
+      "methods": ["POST", "OPTIONS"]
+    },
+    {
+      "src": "/api/debug-env",
+      "dest": "/api/debug-env.js",
+      "methods": ["GET", "POST"]
+    },
+    {
+      "src": "/api/send-email",
+      "dest": "/api/send-email.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/api/save-order",
+      "dest": "/api/save-order.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/api/admin-config",
+      "dest": "/api/admin-config.js",
+      "methods": ["POST", "OPTIONS"]
+    },
+    {
+      "src": "/api/auth",
+      "dest": "/api/auth.js",
+      "methods": ["GET", "POST", "OPTIONS"]
+    },
+    { "src": "/admin",   "dest": "/admin/index.html" },
+    { "src": "/admin/",  "dest": "/admin/index.html" },
+    { "src": "/profil",  "dest": "/profil.html" },
+    { "src": "/profil/", "dest": "/profil.html" },
+    { "src": "/(.*)",    "dest": "/$1" }
+  ]
+}

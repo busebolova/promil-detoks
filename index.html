@@ -370,31 +370,31 @@
             <div class="package-selector">
               <h4 class="package-title">Paket Seçin</h4>
               <div class="package-options">
-                <label class="package-opt active" data-price="299" data-product="toz-tekli">
+                <label class="package-opt active" data-price="199" data-product="toz-tekli">
                   <input type="radio" name="package" value="tekli" checked />
                   <div class="package-opt-inner">
                     <span class="package-name" data-content="pkg1_name">Tekli</span>
                     <span class="package-qty" data-content="pkg1_qty">1 Adet</span>
-                    <span class="package-price" data-content="pkg1_price">₺299</span>
+                    <span class="package-price" data-content="pkg1_price">₺199</span>
                   </div>
                 </label>
-                <label class="package-opt" data-price="799" data-product="toz-uclu">
+                <label class="package-opt" data-price="549" data-product="toz-uclu">
                   <input type="radio" name="package" value="uclu" />
                   <div class="package-opt-inner">
                     <span class="package-name" data-content="pkg2_name">Üçlü</span>
                     <span class="package-qty" data-content="pkg2_qty">3 Adet</span>
-                    <span class="package-price" data-content="pkg2_price">₺799</span>
-                    <span class="package-save" data-content="pkg2_save">Tasarruf: ₺98</span>
+                    <span class="package-price" data-content="pkg2_price">₺549</span>
+                    <span class="package-save" data-content="pkg2_save">Tasarruf: ₺48</span>
                   </div>
                 </label>
-                <label class="package-opt package-opt-featured" data-price="3699" data-product="toz-stand">
+                <label class="package-opt package-opt-featured" data-price="2499" data-product="toz-stand">
                   <input type="radio" name="package" value="stand" />
                   <div class="package-opt-inner">
                     <span class="package-badge-small">En Avantajlı</span>
                     <span class="package-name" data-content="pkg3_name">16'lı Stand</span>
                     <span class="package-qty" data-content="pkg3_qty">16 Adet</span>
-                    <span class="package-price" data-content="pkg3_price">₺3.699</span>
-                    <span class="package-save" data-content="pkg3_save">Adet başı ₺231</span>
+                    <span class="package-price" data-content="pkg3_price">₺2.499</span>
+                    <span class="package-save" data-content="pkg3_save">Adet başı ₺156</span>
                   </div>
                 </label>
               </div>
@@ -402,9 +402,9 @@
 
             <div class="product-footer">
               <div class="product-price">
-                <span class="price-new" id="selectedPrice">₺299</span>
+                <span class="price-new" id="selectedPrice">₺199</span>
               </div>
-              <button class="btn btn-primary btn-buy" id="addToCartBtn" data-product="toz-tekli" data-price="299">
+              <button class="btn btn-primary btn-buy" id="addToCartBtn" data-product="toz-tekli" data-price="199">
                 Sepete Ekle
               </button>
             </div>
@@ -448,11 +448,46 @@
             <span><i data-lucide="check" class="icon-xs"></i> Klinik Analizi Tamamlandı</span>
             <span><i data-lucide="check" class="icon-xs"></i> Türkiye'de Yasal İzinli</span>
           </div>
+
+          <!-- Paket Seçimi -->
+          <div class="package-selector">
+            <h4 class="package-title">Paket Seçin</h4>
+            <div class="package-options">
+              <label class="package-opt active" data-price="299" data-product="shot">
+                <input type="radio" name="shot-package" value="shot" checked />
+                <div class="package-opt-inner">
+                  <span class="package-name">Tekli</span>
+                  <span class="package-qty">1 Adet</span>
+                  <span class="package-price">₺299</span>
+                </div>
+              </label>
+              <label class="package-opt" data-price="799" data-product="shot-uclu">
+                <input type="radio" name="shot-package" value="shot-uclu" />
+                <div class="package-opt-inner">
+                  <span class="package-name">Üçlü</span>
+                  <span class="package-qty">3 Adet</span>
+                  <span class="package-price">₺799</span>
+                  <span class="package-save">Tasarruf: ₺98</span>
+                </div>
+              </label>
+              <label class="package-opt package-opt-featured" data-price="3699" data-product="shot-stand">
+                <input type="radio" name="shot-package" value="shot-stand" />
+                <div class="package-opt-inner">
+                  <span class="package-badge-small">En Avantajlı</span>
+                  <span class="package-name">16'lı Stand</span>
+                  <span class="package-qty">16 Adet</span>
+                  <span class="package-price">₺3.699</span>
+                  <span class="package-save">Adet başı ₺231</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
           <div class="product-footer">
             <div class="product-price">
-              <span class="price-new" id="shotPrice">₺199</span>
+              <span class="price-new" id="shotPrice">₺299</span>
             </div>
-            <button class="btn btn-primary btn-buy" data-product="shot" data-price="199">
+            <button class="btn btn-primary btn-buy shot-add-btn" id="addShotBtn" data-product="shot" data-price="299">
               Sepete Ekle
             </button>
           </div>
@@ -679,20 +714,14 @@
           <div id="cartAddressFields">
             <input type="text" id="cartAddress" placeholder="Mahalle, Sokak, Bina No, Daire No" required autocomplete="street-address" />
             <div class="cart-form-row" style="margin-top:8px;">
-              <input type="text" id="cartCity" placeholder="Şehir" required autocomplete="address-level2" />
-              <input type="text" id="cartDistrict" placeholder="İlçe" autocomplete="address-level3" />
+              <select id="cartCity" required>
+                <option value="">Şehir Seçin</option>
+              </select>
+              <select id="cartDistrict" required>
+                <option value="">İlçe Seçin</option>
+              </select>
             </div>
             <input type="text" id="cartZip" placeholder="Posta Kodu (opsiyonel)" autocomplete="postal-code" style="margin-top:8px;" />
-          </div>
-
-          <div class="cart-installment-row">
-            <span class="cart-installment-label">Taksit:</span>
-            <select id="cartInstallment">
-              <option value="1">Tek Çekim</option>
-              <option value="3">3 Taksit</option>
-              <option value="6">6 Taksit</option>
-              <option value="12">12 Taksit</option>
-            </select>
           </div>
         </div>
 
@@ -757,33 +786,6 @@
           <div class="form-group">
             <label for="payPhone">Telefon <span class="req">*</span></label>
             <input type="tel" id="payPhone" name="phone" placeholder="05XX XXX XX XX" required autocomplete="tel" />
-          </div>
-        </div>
-
-        <div class="installment-section">
-          <h4>Taksit Tercihi</h4>
-          <p class="form-section-note">Taksit seçeneğinizi belirleyin (iyzico sayfasında da değiştirebilirsiniz).</p>
-          <div class="installment-options">
-            <label class="installment-opt active">
-              <input type="radio" name="installment" value="1" checked />
-              <span>Tek Çekim</span>
-              <span class="inst-price" id="instPrice1">₺0</span>
-            </label>
-            <label class="installment-opt">
-              <input type="radio" name="installment" value="3" />
-              <span>3 Taksit</span>
-              <span class="inst-price" id="instPrice3">₺0/ay</span>
-            </label>
-            <label class="installment-opt">
-              <input type="radio" name="installment" value="6" />
-              <span>6 Taksit</span>
-              <span class="inst-price" id="instPrice6">₺0/ay</span>
-            </label>
-            <label class="installment-opt">
-              <input type="radio" name="installment" value="12" />
-              <span>12 Taksit</span>
-              <span class="inst-price" id="instPrice12">₺0/ay</span>
-            </label>
           </div>
         </div>
 
@@ -1117,6 +1119,7 @@
   </nav>
 
   <script src="js/auth.js"></script>
+  <script src="js/city-data.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

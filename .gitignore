@@ -31,3 +31,5 @@ test-iyzico.js
 # Vercel production'da GITHUB_TOKEN env değişkeni ile GitHub API üzerinden yönetilir.
 # Local geliştirmede bu dosya git'te tutulur (boş array ile başlar).
 # Gerçek kullanıcı verileri production'da GitHub repo'sunda şifreli hash olarak saklanır.
+.vercel
+.env*

@@ -247,6 +247,37 @@ function setText(selector, value) {
   if (el) el.textContent = value;
 }
 
+/* ── İl/İlçe Dropdown ── */
+function initCityDistrict() {
+  const citySelect = document.getElementById('cartCity');
+  const districtSelect = document.getElementById('cartDistrict');
+  if (!citySelect) return;
+
+  // Şehirleri doldur
+  const cities = Object.keys(CITY_DATA).sort();
+  cities.forEach(city => {
+    const opt = document.createElement('option');
+    opt.value = city;
+    opt.textContent = city;
+    citySelect.appendChild(opt);
+  });
+
+  // Şehir değişince ilçeleri güncelle
+  citySelect.addEventListener('change', () => {
+    const selectedCity = citySelect.value;
+    districtSelect.innerHTML = '<option value="">İlçe Seçin</option>';
+    districtSelect.disabled = !selectedCity;
+    if (selectedCity && CITY_DATA[selectedCity]) {
+      CITY_DATA[selectedCity].forEach(district => {
+        const opt = document.createElement('option');
+        opt.value = district;
+        opt.textContent = district;
+        districtSelect.appendChild(opt);
+      });
+    }
+  });
+}
+
 /* ── Lucide Icons Init ── */
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof lucide !== 'undefined') {
@@ -254,6 +285,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   // content.json yükle (GitHub Pages'te çalışır, local file:// protokolünde sessizce geçer)
   loadContent();
+  // İl/İlçe dropdown'larını doldur
+  initCityDistrict();
 });
 
 /* ── Navbar Scroll ── */
@@ -336,11 +369,6 @@ const summaryProduct   = document.getElementById('summaryProduct');
 const summaryTotal     = document.getElementById('summaryTotal');
 const payBtnTotal      = document.getElementById('payBtnTotal');
 
-const instPrice1  = document.getElementById('instPrice1');
-const instPrice3  = document.getElementById('instPrice3');
-const instPrice6  = document.getElementById('instPrice6');
-const instPrice12 = document.getElementById('instPrice12');
-
 const productNames = {
   'toz':        'Promil Detoks Toz – Tekli',
   'toz-tekli':  'Promil Detoks Toz – Tekli (1 Adet)',
@@ -357,13 +385,6 @@ function formatPrice(n) {
   return '₺' + n.toLocaleString('tr-TR');
 }
 
-function updateInstallments(price) {
-  if (instPrice1)  instPrice1.textContent  = formatPrice(price);
-  if (instPrice3)  instPrice3.textContent  = formatPrice(Math.ceil(price / 3)) + '/ay';
-  if (instPrice6)  instPrice6.textContent  = formatPrice(Math.ceil(price / 6)) + '/ay';
-  if (instPrice12) instPrice12.textContent = formatPrice(Math.ceil(price / 12)) + '/ay';
-}
-
 function openPaymentModal(productKey, price, overrideName) {
   currentPrice      = price;
   currentProductKey = productKey;
@@ -373,16 +394,6 @@ function openPaymentModal(productKey, price, overrideName) {
   if (summaryProduct)   summaryProduct.textContent   = currentProductName;
   if (summaryTotal)     summaryTotal.textContent     = formatPrice(price);
   if (payBtnTotal)      payBtnTotal.textContent      = formatPrice(price);
-  updateInstallments(price);
-
-  // Reset installment selection
-  document.querySelectorAll('.installment-opt').forEach(opt => opt.classList.remove('active'));
-  const firstOpt = document.querySelector('.installment-opt');
-  if (firstOpt) {
-    firstOpt.classList.add('active');
-    const firstInput = firstOpt.querySelector('input');
-    if (firstInput) firstInput.checked = true;
-  }
 
   if (paymentModal) {
     paymentModal.classList.add('active');
@@ -488,9 +499,6 @@ async function initiateIyzicoPayment(formData) {
   }));
 
   const totalPrice = cart.total();
-  const selectedInstallment = parseInt(
-    document.querySelector('.installment-opt input:checked')?.value || '1', 10
-  );
 
   const payload = {
     firstName:     formData.firstName,
@@ -502,7 +510,6 @@ async function initiateIyzicoPayment(formData) {
     country:       'Turkey',
     basketItems,
     price:         totalPrice.toFixed(2),
-    installment:   selectedInstallment,
     callbackUrl:   window.location.origin + '/api/payment-callback',
     conversationId: 'pd-' + Date.now(),
   };
@@ -585,6 +592,8 @@ const packageImages = {
   'toz-uclu':  ['images/3lu.jpeg',     'images/tekli.jpeg',   'images/tekli2.jpeg'],
   'toz-stand': ['images/20stand.jpeg', 'images/20stand2.jpeg','images/20stand3.jpeg'],
   'shot':      ['images/shot.jpeg',    'images/shot2.jpeg',   'images/shot3.jpeg'],
+  'shot-uclu': ['images/shot.jpeg',    'images/shot2.jpeg',   'images/shot3.jpeg'],
+  'shot-stand':['images/shot.jpeg',    'images/shot2.jpeg',   'images/shot3.jpeg'],
 };
 
 function updateSliderImages(packageId) {
@@ -609,14 +618,14 @@ function updateSliderImages(packageId) {
   document.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === 0));
 }
 
-/* ── Paket Seçimi ── */
-const packageOpts = document.querySelectorAll('.package-opt');
+/* ── Paket Seçimi (Toz) ── */
+const tozPackageOpts = document.querySelectorAll('.product-card .package-opt');
 const selectedPriceEl = document.getElementById('selectedPrice');
 const addToCartBtn = document.getElementById('addToCartBtn');
 
-packageOpts.forEach(opt => {
+tozPackageOpts.forEach(opt => {
   opt.addEventListener('click', () => {
-    packageOpts.forEach(o => o.classList.remove('active'));
+    tozPackageOpts.forEach(o => o.classList.remove('active'));
     opt.classList.add('active');
     const price   = opt.dataset.price;
     const product = opt.dataset.product;
@@ -627,6 +636,27 @@ packageOpts.forEach(opt => {
     }
     // Slider görsellerini güncelle
     updateSliderImages(product);
+  });
+});
+
+/* ── Paket Seçimi (Shot) ── */
+const shotPackageOpts = document.querySelectorAll('#productSliderShot').length > 0
+  ? document.querySelectorAll('.product-card-wide:last-child .package-opt')
+  : [];
+const addShotBtn = document.getElementById('addShotBtn');
+const shotPriceEl = document.getElementById('shotPrice');
+
+shotPackageOpts.forEach(opt => {
+  opt.addEventListener('click', () => {
+    shotPackageOpts.forEach(o => o.classList.remove('active'));
+    opt.classList.add('active');
+    const price   = opt.dataset.price;
+    const product = opt.dataset.product;
+    if (shotPriceEl) shotPriceEl.textContent = '₺' + parseInt(price).toLocaleString('tr-TR');
+    if (addShotBtn) {
+      addShotBtn.dataset.price   = price;
+      addShotBtn.dataset.product = product;
+    }
   });
 });
 
@@ -792,7 +822,19 @@ const productNameMap = {
   'toz-tekli': 'Promil Detoks Toz – Tekli (1 Adet)',
   'toz-uclu':  'Promil Detoks Toz – Üçlü (3 Adet)',
   'toz-stand': 'Promil Detoks Toz – 16\'lı Stand',
-  'shot':      'Promil Detoks Shot',
+  'shot':      'Promil Detoks Shot – Tekli (1 Adet)',
+  'shot-uclu': 'Promil Detoks Shot – Üçlü (3 Adet)',
+  'shot-stand':'Promil Detoks Shot – 16\'lı Stand',
+};
+
+/* Ürün görseli haritası */
+const productImageMap = {
+  'toz-tekli': 'images/tekli.jpeg',
+  'toz-uclu':  'images/3lu.jpeg',
+  'toz-stand': 'images/20stand.jpeg',
+  'shot':      'images/shot.jpeg',
+  'shot-uclu': 'images/shot.jpeg',
+  'shot-stand':'images/shot.jpeg',
 };
 
 function updateCartBadge() {
@@ -909,10 +951,9 @@ if (cartCheckoutBtn) {
     const email      = document.getElementById('cartEmail')?.value.trim() || '';
     const phone      = document.getElementById('cartPhone')?.value.trim() || '';
     const address    = document.getElementById('cartAddress')?.value.trim() || '';
-    const city       = document.getElementById('cartCity')?.value.trim() || '';
-    const district   = document.getElementById('cartDistrict')?.value.trim() || '';
+    const city       = document.getElementById('cartCity')?.value || '';
+    const district   = document.getElementById('cartDistrict')?.value || '';
     const zip        = document.getElementById('cartZip')?.value.trim() || '';
-    const installment = parseInt(document.getElementById('cartInstallment')?.value || '1', 10);
 
     // Zorunlu alan kontrolü
     const requiredFields = ['cartFirstName','cartLastName','cartEmail','cartPhone','cartAddress','cartCity'];
@@ -975,7 +1016,6 @@ if (cartCheckoutBtn) {
       country:        'Turkey',
       basketItems,
       price:          totalPrice.toFixed(2),
-      installment,
       callbackUrl:    window.location.origin + '/api/payment-callback',
       conversationId: 'pd-' + Date.now(),
     };
@@ -1064,20 +1104,6 @@ if (paymentModal) {
     if (e.target === paymentModal) closePaymentModal();
   });
 }
-
-// Taksit seçimi
-document.querySelectorAll('.installment-opt').forEach(opt => {
-  opt.addEventListener('click', () => {
-    document.querySelectorAll('.installment-opt').forEach(o => o.classList.remove('active'));
-    opt.classList.add('active');
-    const val = parseInt(opt.querySelector('input').value, 10);
-    const total = val === 1
-      ? formatPrice(currentPrice)
-      : formatPrice(Math.ceil(currentPrice / val) * val);
-    if (summaryTotal) summaryTotal.textContent = total;
-    if (payBtnTotal)  payBtnTotal.textContent  = total;
-  });
-});
 
 // Ödeme formu gönder — iyzico entegrasyonu
 if (paymentForm) {

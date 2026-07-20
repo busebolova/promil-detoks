@@ -104,7 +104,7 @@
       "name": "Promil Detoks Toz",
       "description": "Alkol sonrası toparlanmayı destekleyen bitki özlü toz formül. Alkol tüketiminin ardından suyla karıştırarak kolayca kullanılır. Türkiye'de gerekli izin ve analizleri tamamlanmış, satışı yasal ve güvenlidir.",
       "price_old": "",
-      "price_new": 299,
+      "price_new": 199,
       "features": [
         "Bitkisel & Doğal İçerik",
         "Suyla Karıştırılır",
@@ -116,22 +116,22 @@
           "id": "toz-tekli",
           "name": "Tekli",
           "qty": "1 Adet",
-          "price": 299,
+          "price": 199,
           "save": ""
         },
         {
           "id": "toz-uclu",
           "name": "Üçlü",
           "qty": "3 Adet",
-          "price": 799,
-          "save": "Tasarruf: ₺98"
+          "price": 549,
+          "save": "Tasarruf: ₺48"
         },
         {
           "id": "toz-stand",
           "name": "16'lı Stand",
           "qty": "16 Adet",
-          "price": 3699,
-          "save": "Adet başı ₺231",
+          "price": 2499,
+          "save": "Adet başı ₺156",
           "featured": true
         }
       ],
@@ -156,7 +156,7 @@
       "name": "Promil Detoks Shot",
       "description": "Aynı güçlü bitkisel formülün pratik shot versiyonu. Hazır içim, her an yanında. Suyla karıştırmaya gerek yok, direkt tüket.",
       "price_old": "",
-      "price_new": 199,
+      "price_new": 299,
       "features": [
         "Bitkisel & Doğal İçerik",
         "Hazır İçim - Suya Gerek Yok",
@@ -166,10 +166,25 @@
       "packages": [
         {
           "id": "shot",
-          "name": "Shot",
+          "name": "Tekli",
           "qty": "1 Adet",
-          "price": 199,
+          "price": 299,
           "save": ""
+        },
+        {
+          "id": "shot-uclu",
+          "name": "Üçlü",
+          "qty": "3 Adet",
+          "price": 799,
+          "save": "Tasarruf: ₺98"
+        },
+        {
+          "id": "shot-stand",
+          "name": "16'lı Stand",
+          "qty": "16 Adet",
+          "price": 3699,
+          "save": "Adet başı ₺231",
+          "featured": true
         }
       ],
       "images": [

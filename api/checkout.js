@@ -132,7 +132,6 @@ module.exports = async function handler(req, res) {
   var country        = body.country;
   var basketItems    = body.basketItems;
   var price          = body.price;
-  var installment    = body.installment;
   var callbackUrl    = body.callbackUrl;
   var conversationId = body.conversationId;
 
@@ -192,11 +191,10 @@ module.exports = async function handler(req, res) {
     price:               priceStr,
     paidPrice:           priceStr,
     currency:            'TRY',
-    installment:         Math.max(1, parseInt(installment) || 1),
+    installment:         1,
     basketId:            basketId,
     paymentGroup:        'PRODUCT',
     callbackUrl:         finalCallbackUrl,
-    enabledInstallments: [1, 2, 3, 6, 9, 12],
     buyer: {
       id:                  'buyer-' + ts,
       name:                firstName.trim(),

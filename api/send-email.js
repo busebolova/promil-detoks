@@ -1,12 +1,10 @@
 // api/send-email.js — Vercel Serverless Function
-// Ödeme sonrası müşteriye ve işletmeye e-posta gönderir
-// Önce Resend API dener, yoksa Gmail SMTP (nodemailer) kullanır
+// Ödeme sonrası müşteriye ve işletmeye e-posta gönderir (SMTP ile)
 
 'use strict';
 
-const https = require('https');
+const nodemailer = require('nodemailer');
 
-const RESEND_API_KEY  = process.env.RESEND_API_KEY;
 const SMTP_HOST       = process.env.SMTP_HOST || 'smtp.gmail.com';
 const SMTP_PORT       = parseInt(process.env.SMTP_PORT || '465', 10);
 const SMTP_USER       = process.env.SMTP_USER || process.env.GMAIL_USER || '';
@@ -15,54 +13,8 @@ const FROM_EMAIL      = process.env.FROM_EMAIL || SMTP_USER || 'siparis@promilde
 const ADMIN_EMAIL     = process.env.ADMIN_EMAIL || 'info@lifemixturkey.com';
 const ADMIN_EMAIL2    = process.env.ADMIN_EMAIL2 || 'lifemixgida@gmail.com';
 
-// ── Resend API ile gönder ──
-function sendViaResend(to, subject, html) {
-  return new Promise((resolve, reject) => {
-    const body = JSON.stringify({
-      from: `Promil Detoks <${FROM_EMAIL}>`,
-      to: Array.isArray(to) ? to : [to],
-      subject,
-      html,
-    });
-
-    const req = https.request({
-      hostname: 'api.resend.com',
-      path: '/emails',
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(body),
-      },
-    }, (res) => {
-      let data = '';
-      res.on('data', chunk => { data += chunk; });
-      res.on('end', () => {
-        try {
-          const parsed = JSON.parse(data);
-          if (res.statusCode >= 400) {
-            reject(new Error('Resend hata: ' + (parsed.message || parsed.name || res.statusCode)));
-          } else {
-            resolve(parsed);
-          }
-        } catch (e) { resolve({ raw: data }); }
-      });
-    });
-    req.on('error', reject);
-    req.write(body);
-    req.end();
-  });
-}
-
-// ── Nodemailer ile Gmail SMTP gönder ──
+// ── SMTP ile e-posta gönder ──
 async function sendViaSmtp(to, subject, html) {
-  let nodemailer;
-  try {
-    nodemailer = require('nodemailer');
-  } catch (e) {
-    throw new Error('nodemailer yüklü değil. npm install nodemailer çalıştırın.');
-  }
-
   const transportConfig = {
     host: SMTP_HOST,
     port: SMTP_PORT,
@@ -101,16 +53,13 @@ async function sendViaSmtp(to, subject, html) {
   });
 }
 
-// ── Gönderici seç: Resend varsa Resend, yoksa SMTP ──
+// ── Gönderici seç: sadece SMTP ──
 async function sendEmail(to, subject, html) {
-  if (RESEND_API_KEY && RESEND_API_KEY !== 're_xxxxxxxxxxxxxxxxxxxx' && RESEND_API_KEY.startsWith('re_')) {
-    console.log('[email] Resend API ile gönderiliyor:', to);
-    return sendViaResend(to, subject, html);
-  } else if (SMTP_USER && SMTP_PASS) {
+  if (SMTP_USER && SMTP_PASS) {
     console.log('[email] SMTP ile gönderiliyor:', to);
     return sendViaSmtp(to, subject, html);
   } else {
-    throw new Error('E-posta yapılandırması eksik. RESEND_API_KEY veya SMTP_USER+SMTP_PASS gerekli.');
+    throw new Error('E-posta yapılandırması eksik. SMTP_USER ve SMTP_PASS gerekli.');
   }
 }
 
@@ -596,12 +545,9 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
 
-  const hasResend = RESEND_API_KEY && RESEND_API_KEY !== 're_xxxxxxxxxxxxxxxxxxxx' && RESEND_API_KEY.startsWith('re_');
-  const hasSmtp   = SMTP_USER && SMTP_PASS;
-
-  if (!hasResend && !hasSmtp) {
-    console.warn('[email] E-posta yapılandırması eksik.');
-    return res.status(200).json({ warning: 'E-posta yapılandırması eksik, mail gönderilemedi.' });
+  if (!SMTP_USER || !SMTP_PASS) {
+    console.warn('[email] SMTP yapılandırması eksik.');
+    return res.status(200).json({ warning: 'SMTP yapılandırması eksik, mail gönderilemedi.' });
   }
 
   let body = req.body;

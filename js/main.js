@@ -619,7 +619,7 @@ function updateSliderImages(packageId) {
 }
 
 /* ── Paket Seçimi (Toz) ── */
-const tozPackageOpts = document.querySelectorAll('.product-card .package-opt');
+const tozPackageOpts = document.querySelectorAll('.product-card.featured .package-opt');
 const selectedPriceEl = document.getElementById('selectedPrice');
 const addToCartBtn = document.getElementById('addToCartBtn');
 
@@ -640,25 +640,25 @@ tozPackageOpts.forEach(opt => {
 });
 
 /* ── Paket Seçimi (Shot) ── */
-const shotPackageOpts = document.querySelectorAll('#productSliderShot').length > 0
-  ? document.querySelectorAll('.product-card-wide:last-child .package-opt')
-  : [];
+const shotPackageOpts = document.querySelectorAll('.product-card:not(.featured) .package-opt');
 const addShotBtn = document.getElementById('addShotBtn');
 const shotPriceEl = document.getElementById('shotPrice');
 
-shotPackageOpts.forEach(opt => {
-  opt.addEventListener('click', () => {
-    shotPackageOpts.forEach(o => o.classList.remove('active'));
-    opt.classList.add('active');
-    const price   = opt.dataset.price;
-    const product = opt.dataset.product;
-    if (shotPriceEl) shotPriceEl.textContent = '₺' + parseInt(price).toLocaleString('tr-TR');
-    if (addShotBtn) {
-      addShotBtn.dataset.price   = price;
-      addShotBtn.dataset.product = product;
-    }
+if (shotPackageOpts.length > 0) {
+  shotPackageOpts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      shotPackageOpts.forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      const price   = opt.dataset.price;
+      const product = opt.dataset.product;
+      if (shotPriceEl) shotPriceEl.textContent = '₺' + parseInt(price).toLocaleString('tr-TR');
+      if (addShotBtn) {
+        addShotBtn.dataset.price   = price;
+        addShotBtn.dataset.product = product;
+      }
+    });
   });
-});
+}
 
 /* ── Ürün Slider ── */
 (function initProductSlider() {

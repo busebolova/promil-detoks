@@ -365,6 +365,11 @@ ul { list-style: none; }
   padding-top: 80px;
 }
 
+/* Scroll offset for fixed navbar */
+html {
+  scroll-padding-top: 100px;
+}
+
 /* Mesh gradient background */
 .hero::before {
   content: '';

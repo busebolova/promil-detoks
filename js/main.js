@@ -809,25 +809,7 @@ const cart = {
   }
 };
 
-/* Ürün görseli haritası */
-const productImageMap = {
-  'toz-tekli': 'images/tekli.jpeg',
-  'toz-uclu':  'images/3lu.jpeg',
-  'toz-stand': 'images/20stand.jpeg',
-  'shot':      'images/shot.jpeg',
-};
-
-/* Ürün adı haritası (tam) */
-const productNameMap = {
-  'toz-tekli': 'Promil Detoks Toz – Tekli (1 Adet)',
-  'toz-uclu':  'Promil Detoks Toz – Üçlü (3 Adet)',
-  'toz-stand': 'Promil Detoks Toz – 16\'lı Stand',
-  'shot':      'Promil Detoks Shot – Tekli (1 Adet)',
-  'shot-uclu': 'Promil Detoks Shot – Üçlü (3 Adet)',
-  'shot-stand':'Promil Detoks Shot – 16\'lı Stand',
-};
-
-/* Ürün görseli haritası */
+/* Ürün görseli ve ad haritaları */
 const productImageMap = {
   'toz-tekli': 'images/tekli.jpeg',
   'toz-uclu':  'images/3lu.jpeg',
@@ -835,6 +817,15 @@ const productImageMap = {
   'shot':      'images/shot.jpeg',
   'shot-uclu': 'images/shot.jpeg',
   'shot-stand':'images/shot.jpeg',
+};
+
+const productNameMap = {
+  'toz-tekli': 'Promil Detoks Toz – Tekli (1 Adet)',
+  'toz-uclu':  'Promil Detoks Toz – Üçlü (3 Adet)',
+  'toz-stand': 'Promil Detoks Toz – 16\'lı Stand',
+  'shot':      'Promil Detoks Shot – Tekli (1 Adet)',
+  'shot-uclu': 'Promil Detoks Shot – Üçlü (3 Adet)',
+  'shot-stand':'Promil Detoks Shot – 16\'lı Stand',
 };
 
 function updateCartBadge() {
